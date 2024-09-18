@@ -1,14 +1,15 @@
 import React from "react";
 
-const NavbarEnd = ({ onThemeChange, theme }) => {
+const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
   return (
     <div className="flex justify-center items-center gap-x-3">
       <label className="swap swap-rotate">
         {/* this hidden checkbox controls the state */}
         <input
           type="checkbox"
-          onClick={onThemeChange}
-          checked={theme === "dark"}
+          onChange={onThemeChange}
+          checked={noteHubTheme === "dark"}
+          value={noteHubTheme}
         />
 
         {/* sun icon */}

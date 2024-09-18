@@ -3,18 +3,18 @@ import logo from "../assets/logo.png";
 import NavbarEnd from "./NavbarEnd";
 
 const NavBar = () => {
-  const [theme, setTheme] = useState("light");
+  const [noteHubTheme, setNoteHubTheme] = useState("light");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") || "light";
-    setTheme(storedTheme);
+    const storedTheme = localStorage.getItem("noteHubTheme") || "light";
+    setNoteHubTheme(storedTheme);
     document.documentElement.setAttribute("data-theme", storedTheme);
   }, []);
 
   const onThemeChange = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
+    const newTheme = noteHubTheme === "light" ? "dark" : "light";
+    localStorage.setItem("noteHubTheme", newTheme);
+    setNoteHubTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
@@ -31,7 +31,7 @@ const NavBar = () => {
           </span>
         </a>
 
-        <NavbarEnd onThemeChange={onThemeChange} theme={theme} />
+        <NavbarEnd onThemeChange={onThemeChange} noteHubTheme={noteHubTheme} />
       </nav>
     </div>
   );
