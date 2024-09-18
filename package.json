@@ -1,6 +1,7 @@
 {
   "name": "notehub",
   "version": "0.1.0",
+  "homepage": "https://hasinur3813.github.io/notehub",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -16,6 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -40,6 +42,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.10",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.11"
   }
