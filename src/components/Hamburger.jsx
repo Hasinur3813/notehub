@@ -1,25 +1,25 @@
 import React from "react";
 
-const Hamburger = ({ close, setClose }) => {
+const Hamburger = ({ isSideBarOpen, setIsSideBarOpen }) => {
   return (
     <div
       className={`${
-        !close && "opacity-0 pointer-events-none"
+        isSideBarOpen && "opacity-0 pointer-events-none"
       } transition-all duration-700`}
     >
       <button
         type="button"
-        onClick={() => setClose(!close)}
-        className="flex bg-muted absolute -right-24 p-x py-2 text-base font-semibold rounded ps-2 justify-between items-center cursor-pointer hover:bg-slate-300 duration-200"
+        onClick={() => setIsSideBarOpen(!isSideBarOpen)}
+        className="flex bg-muted dark:bg-dark-primary dark:text-primary absolute -right-[30px] md:-right-[80px] px-2 py-2 text-base font-semibold rounded ps-2 justify-between items-center cursor-pointer hover:bg-slate-300 duration-200"
       >
-        Menu
+        <span className="hidden md:block">Menu</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={2}
+          strokeWidth={3}
           stroke="currentColor"
-          className="size-5"
+          className="size-5 text-accent-1"
         >
           <path
             strokeLinecap="round"

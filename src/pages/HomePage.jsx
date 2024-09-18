@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import BannerIllustrasion from "../components/BannerIllustrasion";
 import { Button } from "../components/Button";
+import { SideBarContext } from "../context/SideBar";
 
 const HomePage = () => {
+  const { isSideBarOpen } = useContext(SideBarContext);
   return (
-    <section className="overflow-y-auto w-full py-8 md:py-0 bg-gradient-to-r from-indigo-500 to-sky-500 px-4">
+    <section
+      className={` transition-all duration-200 ease-out overflow-y-auto w-full pt-28 md:py-0 bg-gradient-to-r from-indigo-500 to-sky-500 px-4 dark:bg-none ${
+        isSideBarOpen && "lg:ms-52"
+      }`}
+    >
       <div className="container mx-auto flex flex-col md:flex-row text-center md:text-left  md:justify-between gap-y-10 items-center h-full">
         <div className=" text-white rounded mb-8">
           <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">

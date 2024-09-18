@@ -1,15 +1,19 @@
 import React from "react";
 
-const NavbarEnd = () => {
+const NavbarEnd = ({ onThemeChange, theme }) => {
   return (
     <div className="flex justify-center items-center gap-x-3">
       <label className="swap swap-rotate">
         {/* this hidden checkbox controls the state */}
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          onClick={onThemeChange}
+          checked={theme === "dark"}
+        />
 
         {/* sun icon */}
         <svg
-          className="swap-on h-7 w-7 fill-current"
+          className="swap-off h-7 w-7 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -18,7 +22,7 @@ const NavbarEnd = () => {
 
         {/* moon icon */}
         <svg
-          className="swap-off h-7 w-7 fill-current"
+          className="swap-on h-7 w-7 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >

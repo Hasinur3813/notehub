@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import NavbarEnd from "./NavbarEnd";
 
 const NavBar = () => {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme") || "light";
+    setTheme(storedTheme);
+    document.documentElement.setAttribute("data-theme", storedTheme);
+  }, []);
+
+  const onThemeChange = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
+
   return (
-    <div className="bg-secondary shadow-sm fixed top-0 left-0 w-full">
+    <div className="bg-secondary dark:bg-dark-primary shadow-sm fixed top-0 left-0 w-full">
       <nav className="container-fluid mx-auto py-3 px-3 md:px-4 flex justify-between items-center">
         <a
           href="/"
           className="cursor-pointer flex justify-center items-center gap-2"
         >
           <img className="w-5 md:w-7" src={logo} alt="logo" />
-          <span className="text-lg md:text-2xl text-text-light font-semibold">
-            NoteHub
+          <span className="text-lg md:text-2xl text-text-light font-semibold dark:text-white">
+            Note<span className="text-sky-500">Hub</span>
           </span>
         </a>
 
-        <NavbarEnd />
+        <NavbarEnd onThemeChange={onThemeChange} theme={theme} />
       </nav>
     </div>
   );
