@@ -1,7 +1,7 @@
 {
+  "homepage": "https://hasinur3813.github.io/notehub",
   "name": "notehub",
   "version": "0.1.0",
-  "homepage": "https://hasinur3813.github.io/notehub",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",
