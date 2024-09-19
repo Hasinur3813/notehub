@@ -8,7 +8,7 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
-        primary: "#F5F7FA",
+        primary: "#eff0f1",
         secondary: "#FFFFFF",
         accent: {
           1: "#4A90E2",

@@ -20,13 +20,13 @@ const NavBar = () => {
 
   return (
     <div className="bg-secondary dark:bg-dark-primary shadow-sm fixed top-0 left-0 w-full">
-      <nav className="container-fluid mx-auto py-3 px-3 md:px-4 flex justify-between items-center">
+      <nav className="container-fluid mx-auto py-4 px-3 md:px-4 flex justify-between items-center">
         <a
           href="/"
           className="cursor-pointer flex justify-center items-center gap-2"
         >
-          <img className="w-5 md:w-7" src={logo} alt="logo" />
-          <span className="text-lg md:text-2xl text-text-light font-semibold dark:text-white">
+          <img className="w-6 md:w-7" src={logo} alt="logo" />
+          <span className="text-xl md:text-2xl text-text-light font-semibold dark:text-white">
             Note<span className="text-sky-500">Hub</span>
           </span>
         </a>

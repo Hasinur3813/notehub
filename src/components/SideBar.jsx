@@ -10,7 +10,7 @@ const SideBar = () => {
     <div
       className={`w-52 h-full transition-all duration-200 ease-out ${
         !isSideBarOpen && "-translate-x-full"
-      } fixed top-16 left-0 bg-secondary dark:bg-dark-primary z-10 lg:mt-px`}
+      } fixed top-[70px] left-0 bg-secondary dark:bg-dark-primary z-10 lg:mt-px`}
     >
       <Hamburger
         isSideBarOpen={isSideBarOpen}
