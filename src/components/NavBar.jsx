@@ -22,7 +22,7 @@ const NavBar = () => {
     <div className="bg-secondary dark:bg-dark-primary shadow-sm fixed top-0 left-0 w-full">
       <nav className="container-fluid mx-auto py-4 px-3 md:px-4 flex justify-between items-center">
         <a
-          href="/"
+          href="../pages/homePage"
           className="cursor-pointer flex justify-center items-center gap-2"
         >
           <img className="w-6 md:w-7" src={logo} alt="logo" />

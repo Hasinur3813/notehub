@@ -16,13 +16,6 @@ const Signup = () => {
   const [confirmPass, setConfirmPass] = useState("");
   const [formErr, setFormErr] = useState(false);
 
-  const HandleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const HandleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (password !== confirmPass) {
@@ -33,7 +26,7 @@ const Signup = () => {
 
   return (
     <PageLayout>
-      <div className="flex justify-center pt-5 ">
+      <div className="flex justify-center py-10 ">
         <div className="lg:w-1/2">
           <Form text="Create an account" onSubmit={handleSubmitForm}>
             {/* Name Input */}
@@ -65,7 +58,7 @@ const Signup = () => {
               label="Password"
               id="password"
               type={showPassword === true ? "text" : "password"}
-              onClick={HandleShowPassword}
+              onClick={() => setShowPassword((prev) => !prev)}
               VisibilityIcon={
                 showPassword ? VisibilityIcon : VisibilityOffOutlinedIcon
               }
@@ -80,7 +73,7 @@ const Signup = () => {
               label="Confirm Password"
               id="ConfirmPassword"
               type={showConfirmPassword === true ? "text" : "password"}
-              onClick={HandleShowConfirmPassword}
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
               VisibilityIcon={
                 showConfirmPassword ? VisibilityIcon : VisibilityOffOutlinedIcon
               }
@@ -97,16 +90,16 @@ const Signup = () => {
             <Button
               type="submit"
               text="Sign Up"
-              className="w-full mt-4 bg-accent-1 hover:bg-accent-2 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-2 dark:bg-accent-2"
+              className="w-full mt-4 bg-accent-1 hover:bg-accent-2 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-2 dark:bg-dark-secondary border border-accent-1 dark:hover:bg-dark-primary"
             />
 
-            <div className="w-full h-[1px] bg-gray-200 rounded my-4"></div>
+            <div className="w-full rounded my-3 text-center">Or</div>
 
             {/* Sign in with Google */}
             <Button
               type="button"
               text="Sign in with Google"
-              className="w-full py-2 bg-primary text-base mt-4 dark:bg-dark-secondary hover:bg-gray-200 dark:hover:bg-dark-accent-1 text-dark-primary dark:text-primary font-semibold rounded-lg shadow-md transition duration-200 ease-in-out flex items-center justify-center"
+              className="w-full py-2 bg-primary text-base dark:bg-dark-secondary hover:bg-gray-200 text-accent-1 font-semibold rounded-lg shadow-md transition duration-200 ease-in-out dark:hover:bg-dark-primary dark:border dark:border-accent-1"
             />
 
             {/* Already have an account? */}
@@ -114,7 +107,7 @@ const Signup = () => {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
-                <a href="/login" className="text-accent-2 hover:underline">
+                <a href="/login" className="text-accent-1 hover:underline">
                   Log in
                 </a>
               </p>

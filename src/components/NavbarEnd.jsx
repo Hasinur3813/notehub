@@ -31,7 +31,7 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
         </svg>
       </label>
       <a
-        href="/"
+        href="../pages/Signup"
         className="lg:ms-4 bg-accent-1 text-white rounded px-4 lg:text-lg hover:bg-blue-500 py-1 hidden sm:block"
       >
         Signup
