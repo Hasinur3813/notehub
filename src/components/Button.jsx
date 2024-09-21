@@ -1,6 +1,9 @@
-export function Button({ className, text }) {
+export function Button({ className, text, ...rest }) {
   return (
-    <button className={`${className} px-6 py-2 font-semibold rounded text-lg`}>
+    <button
+      {...rest}
+      className={`${className} px-6 py-2 font-semibold rounded text-lg`}
+    >
       {text}
     </button>
   );

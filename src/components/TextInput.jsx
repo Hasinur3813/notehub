@@ -1,0 +1,37 @@
+import React from "react";
+
+const TextInput = ({
+  type,
+  placeholder,
+  Icon,
+  VisibilityIcon,
+  value,
+  onChange,
+  ...rest
+}) => {
+  return (
+    <div className="relative">
+      <input
+        value={value}
+        onChange={onChange}
+        className="block w-full px-10 py-3 mb-3 text-base rounded-lg border border-muted dark:border-accent-1 shadow-sm focus:border-accent-1 focus:ring-accent-1 focus:outline-none transition duration-200 ease-in-out bg-white text-dark-primary dark:text-primary placeholder-gray-400
+                  dark:bg-dark-primary"
+        type={type}
+        placeholder={placeholder}
+        required
+      />
+      {Icon && (
+        <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
+      )}
+
+      {!Icon && (
+        <VisibilityIcon
+          {...rest}
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dark-primary"
+        />
+      )}
+    </div>
+  );
+};
+
+export default TextInput;
