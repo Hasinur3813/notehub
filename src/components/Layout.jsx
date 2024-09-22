@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
+import { Outlet } from "react-router-dom";
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <div className="">
@@ -10,7 +11,7 @@ const Layout = ({ children }) => {
 
       <div className="flex h-screen pt-14 overflow-hidden">
         {isLoggedIn && <SideBar />}
-        {children}
+        <Outlet />
       </div>
     </div>
   );

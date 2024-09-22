@@ -6,6 +6,7 @@ import { Email } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { Button } from "../components/Button";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -58,9 +59,9 @@ const Login = () => {
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Don't have an account?{" "}
-              <a href="/login" className="text-accent-1 hover:underline">
+              <Link to="/signup" className="text-accent-1 hover:underline">
                 Signup
-              </a>
+              </Link>
             </p>
           </div>
         </Form>

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import PageLayout from "../components/PageLayout";
 import Note from "../components/Note";
 import SearchInput from "../components/SearchInput";
 import Category from "../components/Category";
+import { staticNotes } from "../components/staticNotes";
 
 const NotePage = () => {
+  const [notes, setNotes] = useState(staticNotes);
+
   return (
     <PageLayout>
       <div className="pt-20">
@@ -14,11 +17,17 @@ const NotePage = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
-          <Note />
-          <Note />
-          <Note />
-          <Note />
-          <Note />
+          {notes.map((note) => {
+            return (
+              <Note
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                description={note.description}
+                createdAt={note.createdAt}
+              />
+            );
+          })}
         </div>
       </div>
     </PageLayout>

@@ -6,6 +6,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import TextInput from "../components/TextInput";
 import Form from "../components/Form";
 import { Button } from "../components/Button";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -107,9 +108,9 @@ const Signup = () => {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
-                <a href="/login" className="text-accent-1 hover:underline">
+                <Link to="/login" className="text-accent-1 hover:underline">
                   Log in
-                </a>
+                </Link>
               </p>
             </div>
           </Form>
