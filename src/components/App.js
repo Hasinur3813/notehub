@@ -11,8 +11,6 @@ import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-console.log(process.env.NODE_ENV);
-
 const router = createBrowserRouter([
   {
     path: "/",

@@ -43,8 +43,8 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
         </svg>
       </label>
       {currentUser ? (
-        <div className="flex justify-center items-center gap-3 md:gap-5">
-          <div className="flex justify-center items-center gap-1">
+        <div className="flex justify-center items-center gap-3 sm:gap-5">
+          <div className="hidden sm:flex justify-center items-center gap-1">
             <AccountCircleIcon sx={{ fontSize: 25 }} />
             <h4 className=" text-gray-500 text-base">
               {currentUser.displayName}
@@ -54,10 +54,33 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
             onClick={handleLogout}
             type="button"
             title="Logout"
-            className="bg-slate-100 border border-accent-1 font-medium text-accent-1 rounded px-4  py-1 flex items-center"
+            className="hidden sm:flex bg-slate-100 border border-accent-1 font-medium text-accent-1 rounded px-3  py-1 items-center"
           >
-            <LogoutIcon />
+            <LogoutIcon sx={{ fontSize: 20 }} />
           </button>
+
+          <div className="dropdown dropdown-end sm:hidden">
+            <div tabIndex={0} role="button">
+              <div className="flex flex-col gap-[1px]">
+                <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
+                <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
+                <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-md z-[1] mt-5 p-2 shadow"
+            >
+              <li>
+                <a href="/">Profile</a>
+              </li>
+              <li>
+                <button onClick={handleLogout} type="button">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       ) : (
         <>
