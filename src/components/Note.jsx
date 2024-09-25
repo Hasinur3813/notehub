@@ -8,7 +8,7 @@ const Note = ({ id, title, description, createdAt }) => {
         <p className="text-sm flex text-gray-500 mb-2">
           <span className="ms-auto">Created: {createdAt}</span>
         </p>
-        <h2 class="dark:text-secondary text-lg md:text-xl font-bold text-gray-800 ">
+        <h2 className="dark:text-secondary text-lg md:text-xl font-bold text-gray-800 ">
           {title}
         </h2>
       </div>

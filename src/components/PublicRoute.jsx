@@ -2,16 +2,16 @@ import React, { useEffect, useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
-const PrivateRoute = () => {
+const PublicRoute = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   useEffect(() => {
-    if (!currentUser) {
-      navigate("/login");
+    if (currentUser) {
+      navigate("/");
     }
   }, [currentUser, navigate]);
 
-  return currentUser ? <Outlet /> : null;
+  return !currentUser && <Outlet />;
 };
 
-export default PrivateRoute;
+export default PublicRoute;

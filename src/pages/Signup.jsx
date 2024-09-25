@@ -1,28 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PageLayout from "../components/PageLayout";
 import { Email, Person as PersonIcon } from "@mui/icons-material";
+
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import TextInput from "../components/TextInput";
 import Form from "../components/Form";
 import { Button } from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
+import Snackbars from "../components/Snackbar";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { signup } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const [formErr, setFormErr] = useState(false);
 
-  const handleSubmitForm = (e) => {
+  const [toast, setToast] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
     if (password !== confirmPass) {
-      return setFormErr(true);
+      return setError("Password don't match!");
     }
-    alert("submitted form");
+    if (password.length < "6") {
+      return setError("Password should be at least six characters in length");
+    }
+
+    try {
+      setLoading(true);
+      setError(null);
+      await signup(userName, email, password);
+      setLoading(false);
+      setToast("success");
+      navigate("/");
+      console.log("login successful!");
+    } catch (e) {
+      setError("It seems the email is already in use!");
+      setToast("error");
+      setLoading(false);
+      console.log(e.code);
+    }
   };
 
   return (
@@ -82,15 +107,23 @@ const Signup = () => {
               placeholder="Confirm password"
             />
 
-            {formErr && (
-              <p className="transition duration-150 text-center bg-red-100 rounded py-2 text-base text-red-400">
-                Password does not match
+            {error && (
+              <p className="transition duration-150 text-center bg-red-100 rounded px-2 py-2 text-base text-red-400">
+                {error}
               </p>
             )}
+            {toast === "success" ? (
+              <Snackbars action="success" text="Successfully created account" />
+            ) : toast === "error" ? (
+              <Snackbars
+                action="error"
+                text="It seems the Email is already in use"
+              />
+            ) : null}
 
             <Button
               type="submit"
-              text="Sign Up"
+              text={loading ? "Signing up..." : "Sign Up"}
               className="w-full mt-4 bg-accent-1 hover:bg-accent-2 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-2 dark:bg-dark-secondary border border-accent-1 dark:hover:bg-dark-primary"
             />
 

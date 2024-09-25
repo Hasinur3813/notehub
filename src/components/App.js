@@ -8,7 +8,10 @@ import NotePage from "../pages/NotePage";
 import NoteView from "../pages/NoteView";
 import NotFound from "../pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+console.log(process.env.NODE_ENV);
 
 const router = createBrowserRouter([
   {
@@ -20,29 +23,41 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/signup",
-        element: <Signup />,
+        path: "signup",
+        element: <PublicRoute />,
+        children: [
+          {
+            path: "",
+            element: <Signup />,
+          },
+        ],
       },
       {
-        path: "/login",
-        element: <Login />,
+        path: "login",
+        element: <PublicRoute />,
+        children: [
+          {
+            path: "",
+            element: <Login />,
+          },
+        ],
       },
       {
-        path: "/notes",
+        path: "notes",
         element: <PrivateRoute />,
         children: [
           {
-            path: "/notes",
+            path: "",
             element: <NotePage />,
           },
         ],
       },
       {
-        path: "/notes/note/:id",
+        path: "notes/note/:id",
         element: <NoteView />,
       },
       {
-        path: "/create-note",
+        path: "create-note",
         element: <CreateNote />,
       },
       {

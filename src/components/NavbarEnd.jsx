@@ -1,7 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
+  const navigate = useNavigate();
+  const { currentUser, logout } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
+
   return (
     <div className="flex justify-center items-center gap-x-3">
       <label className="swap swap-rotate">
@@ -31,18 +42,39 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
           <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
         </svg>
       </label>
-      <Link
-        to="/signup"
-        className="lg:ms-4 bg-accent-1 text-white rounded px-4 lg:text-lg hover:bg-blue-500 py-1 hidden sm:block"
-      >
-        Signup
-      </Link>
-      <Link
-        to="/login"
-        className="bg-slate-100 border border-accent-1 lg:text-lg text-text-light rounded px-4  py-1"
-      >
-        Login
-      </Link>
+      {currentUser ? (
+        <div className="flex justify-center items-center gap-3 md:gap-5">
+          <div className="flex justify-center items-center gap-1">
+            <AccountCircleIcon sx={{ fontSize: 25 }} />
+            <h4 className=" text-gray-500 text-base">
+              {currentUser.displayName}
+            </h4>
+          </div>
+          <button
+            onClick={handleLogout}
+            type="button"
+            title="Logout"
+            className="bg-slate-100 border border-accent-1 font-medium text-accent-1 rounded px-4  py-1 flex items-center"
+          >
+            <LogoutIcon />
+          </button>
+        </div>
+      ) : (
+        <>
+          <Link
+            to="/signup"
+            className="lg:ms-4 bg-accent-1 text-white rounded px-4 lg:text-lg hover:bg-blue-500 py-1 hidden sm:block"
+          >
+            Signup
+          </Link>
+          <Link
+            to="/login"
+            className="bg-slate-100 border border-accent-1 lg:text-lg text-text-light rounded px-4  py-1"
+          >
+            Login
+          </Link>
+        </>
+      )}
     </div>
   );
 };
