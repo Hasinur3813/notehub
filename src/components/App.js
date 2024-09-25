@@ -11,60 +11,65 @@ import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />,
+        },
+        {
+          path: "signup",
+          element: <PublicRoute />,
+          children: [
+            {
+              path: "",
+              element: <Signup />,
+            },
+          ],
+        },
+        {
+          path: "login",
+          element: <PublicRoute />,
+          children: [
+            {
+              path: "",
+              element: <Login />,
+            },
+          ],
+        },
+        {
+          path: "notes",
+          element: <PrivateRoute />,
+          children: [
+            {
+              path: "",
+              element: <NotePage />,
+            },
+          ],
+        },
+        {
+          path: "notes/note/:id",
+          element: <NoteView />,
+        },
+        {
+          path: "create-note",
+          element: <CreateNote />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
-      {
-        path: "signup",
-        element: <PublicRoute />,
-        children: [
-          {
-            path: "",
-            element: <Signup />,
-          },
-        ],
-      },
-      {
-        path: "login",
-        element: <PublicRoute />,
-        children: [
-          {
-            path: "",
-            element: <Login />,
-          },
-        ],
-      },
-      {
-        path: "notes",
-        element: <PrivateRoute />,
-        children: [
-          {
-            path: "",
-            element: <NotePage />,
-          },
-        ],
-      },
-      {
-        path: "notes/note/:id",
-        element: <NoteView />,
-      },
-      {
-        path: "create-note",
-        element: <CreateNote />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ],
-  },
-]);
+    basename: process.env.NODE_ENV === "production" ? "/notehub" : "/",
+  }
+);
 
 const App = () => {
   return (

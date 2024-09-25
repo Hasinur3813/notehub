@@ -7,17 +7,19 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
+import PasswordResetModal from "../components/PasswordResetModal";
 import { AuthContext } from "../context/authContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, signInWithGoogle } = useContext(AuthContext);
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const hanldeLoginSubmit = async (e) => {
     e.preventDefault();
@@ -33,9 +35,23 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      setError(null);
+
+      await signInWithGoogle();
+      setLoading(false);
+    } catch (e) {
+      setError(e.code);
+      console.log(e.code);
+    }
+  };
+
   return (
     <PageLayout>
-      <div className="flex justify-center items-center h-screen w-full">
+      {isOpenModal && <PasswordResetModal setIsOpenModal={setIsOpenModal} />}
+
+      <div className="flex justify-center -mt-10 items-center h-screen w-full">
         <Form onSubmit={hanldeLoginSubmit} text="Login to your account">
           <TextInput
             type="email"
@@ -62,6 +78,16 @@ const Login = () => {
             </p>
           )}
 
+          <div className="text-right">
+            <button
+              onClick={() => setIsOpenModal(true)}
+              className="text-accent-2 hover:underline"
+              type="button"
+            >
+              Forget Password?
+            </button>
+          </div>
+
           <Button
             type="submit"
             text={loading ? "logging in..." : "Log In"}
@@ -70,6 +96,7 @@ const Login = () => {
 
           <div className="w-full rounded my-3 text-center">Or</div>
           <Button
+            onClick={handleGoogleSignIn}
             type="button"
             text="Sign in with Google"
             className="w-full py-2 bg-primary text-base dark:bg-dark-secondary hover:bg-gray-200 text-accent-1 font-semibold rounded-lg shadow-md transition duration-200 ease-in-out dark:hover:bg-dark-primary dark:border dark:border-accent-1"

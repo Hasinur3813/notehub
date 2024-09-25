@@ -13,7 +13,7 @@ import Snackbars from "../components/Snackbar";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { signup } = useContext(AuthContext);
+  const { signup, signInWithGoogle } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [userName, setUserName] = useState("");
@@ -46,6 +46,18 @@ const Signup = () => {
       setError("It seems the email is already in use!");
       setToast("error");
       setLoading(false);
+      console.log(e.code);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setError(null);
+
+      await signInWithGoogle();
+      setLoading(false);
+    } catch (e) {
+      setError(e.code);
       console.log(e.code);
     }
   };
@@ -131,6 +143,7 @@ const Signup = () => {
 
             {/* Sign in with Google */}
             <Button
+              onClick={handleGoogleSignIn}
               type="button"
               text="Sign in with Google"
               className="w-full py-2 bg-primary text-base dark:bg-dark-secondary hover:bg-gray-200 text-accent-1 font-semibold rounded-lg shadow-md transition duration-200 ease-in-out dark:hover:bg-dark-primary dark:border dark:border-accent-1"

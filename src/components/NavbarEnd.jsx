@@ -60,7 +60,7 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
           </button>
 
           <div className="dropdown dropdown-end sm:hidden">
-            <div tabIndex={0} role="button">
+            <div tabIndex={0} role="button" className="px-2">
               <div className="flex flex-col gap-[1px]">
                 <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
                 <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
@@ -69,14 +69,20 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-md z-[1] mt-5 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-[1] w-32 mt-6 text-center p-2 shadow"
             >
               <li>
-                <a href="/">Profile</a>
+                <a className="text-base" href="/">
+                  Profile
+                </a>
               </li>
               <li>
-                <button onClick={handleLogout} type="button">
-                  Logout
+                <button
+                  onClick={handleLogout}
+                  type="button"
+                  className="text-accent-2 text-base"
+                >
+                  Logout <LogoutIcon sx={{ fontSize: 20 }} />
                 </button>
               </li>
             </ul>
@@ -92,7 +98,7 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
           </Link>
           <Link
             to="/login"
-            className="bg-slate-100 border border-accent-1 lg:text-lg text-text-light rounded px-4  py-1"
+            className="bg-slate-100 border border-accent-1 lg:text-lg text-accent-1 font-medium hover:bg-slate-200 transition duration-200 rounded px-4  py-1"
           >
             Login
           </Link>
