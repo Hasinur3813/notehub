@@ -76,11 +76,11 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-[1] w-48 mt-7 text-center p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-[1] min-w-52 mt-7 text-center p-2 shadow"
             >
               <li>
                 <span className="flex justify-start items-center gap-1 mb-3">
-                  <AccountCircleIcon sx={{ fontSize: 20 }} />
+                  <AccountCircleIcon sx={{ fontSize: 25 }} />
                   <h4 className=" text-gray-500 text-base">
                     {currentUser.displayName}
                   </h4>

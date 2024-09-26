@@ -23,22 +23,25 @@ const Login = () => {
 
   const hanldeLoginSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      setError(null);
-      await login(email, password);
-      setLoading(false);
-      navigate("/");
-    } catch (e) {
-      setLoading(false);
-      setError("Email or Password is incorrect!");
+    if (password.length >= 6) {
+      try {
+        setLoading(true);
+        setError(null);
+        await login(email, password);
+        setLoading(false);
+        navigate("/");
+      } catch (e) {
+        setLoading(false);
+        setError("Email or Password is incorrect!");
+      }
+    } else {
+      setError("Password should be at least six characters in length");
     }
   };
 
   const handleGoogleSignIn = async () => {
     try {
       setError(null);
-
       await signInWithGoogle();
       setLoading(false);
     } catch (e) {
