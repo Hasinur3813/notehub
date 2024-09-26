@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CreateIcon from "@mui/icons-material/Create";
 
 const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
   const navigate = useNavigate();
@@ -44,6 +45,12 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
       </label>
       {currentUser ? (
         <div className="flex justify-center items-center gap-3 sm:gap-5">
+          <Link
+            className="  lg:text-lg rounded-md text-accent-1"
+            to="/create-note"
+          >
+            <CreateIcon />
+          </Link>
           <div className="hidden sm:flex justify-center items-center gap-1">
             <AccountCircleIcon sx={{ fontSize: 25 }} />
             <h4 className=" text-gray-500 text-base">
@@ -69,12 +76,22 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-[1] w-32 mt-6 text-center p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-[1] w-48 mt-7 text-center p-2 shadow"
             >
               <li>
-                <a className="text-base" href="/">
-                  Profile
-                </a>
+                <span className="flex justify-start items-center gap-1 mb-3">
+                  <AccountCircleIcon sx={{ fontSize: 20 }} />
+                  <h4 className=" text-gray-500 text-base">
+                    {currentUser.displayName}
+                  </h4>
+                </span>
+                <hr />
+              </li>
+
+              <li>
+                <Link className="text-base" to="/notes">
+                  Notes
+                </Link>
               </li>
               <li>
                 <button

@@ -4,6 +4,8 @@ import Note from "../components/Note";
 import SearchInput from "../components/SearchInput";
 import Category from "../components/Category";
 import { staticNotes } from "../components/staticNotes";
+import CreateIcon from "@mui/icons-material/Create";
+import { Link } from "react-router-dom";
 
 const NotePage = () => {
   const [notes, setNotes] = useState(staticNotes);
@@ -29,6 +31,16 @@ const NotePage = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* create note icon */}
+      <div
+        title="Create Note"
+        className="fixed bottom-8 right-4 w-12 h-12 rounded-full bg-accent-1 flex justify-center items-center border border-accent-1 shadow-xl"
+      >
+        <Link className="text-primary" to="/create-note">
+          <CreateIcon />
+        </Link>
       </div>
     </PageLayout>
   );
