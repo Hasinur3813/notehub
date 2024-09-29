@@ -68,7 +68,10 @@ const NoteView = () => {
             <p className="font-semibold text-lg dark:text-secondary">Content</p>
 
             <div className="flex justify-center items-center gap-3">
-              <Link to="/create-note" state={{ note: filteredNote }}>
+              <Link
+                to="/create-note"
+                state={{ note: { ...filteredNote, id: id } }}
+              >
                 <EditNoteIcon
                   sx={{ fontSize: 35 }}
                   className="text-accent-1 cursor-pointer"
@@ -86,7 +89,7 @@ const NoteView = () => {
         </div>
 
         <div className=" text-dark-secondary mb-6 dark:text-primary overflow-y-auto">
-          <p>{filteredNote.description}</p>
+          <p className="whitespace-pre-wrap">{filteredNote.description}</p>
         </div>
       </div>
     </PageLayout>

@@ -3,10 +3,11 @@ import PageLayout from "../components/PageLayout";
 import Note from "../components/Note";
 import SearchInput from "../components/SearchInput";
 import Category from "../components/Category";
-import CreateIcon from "@mui/icons-material/Create";
-import { Link } from "react-router-dom";
+import CreateNoteIcon from "../components/CreateNoteIcon";
 import { useNotes } from "../context/notesContext";
 import { AuthContext } from "../context/authContext";
+import ForEmptyNotes from "../components/ForEmptyNotes";
+import FetchingNotes from "../components/FetchingNotes";
 
 const NotePage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -23,8 +24,14 @@ const NotePage = () => {
       <Note
         key={note.id}
         id={note.id}
-        title={`${note.title.slice(0, 50)}...`}
-        description={`${note.description.slice(0, 70)}...`}
+        title={
+          note.title.length > 50 ? `${note.title.slice(0, 50)}...` : note.title
+        }
+        description={
+          note.description.length > 70
+            ? `${note.description.slice(0, 70)}...`
+            : note.description
+        }
         createdAt={note.createdAt}
       />
     );
@@ -51,9 +58,12 @@ const NotePage = () => {
 
   return (
     <PageLayout>
+      {/* page container */}
       <div className="pt-14 lg:pt-20">
+        {/* search input and category */}
         <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-y-0 justify-between items-center">
           <SearchInput
+            onBlur={() => setSearch("")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -62,6 +72,8 @@ const NotePage = () => {
             onChange={(e) => setCategory(e.target.value)}
           />
         </div>
+
+        {/* your notes heading that is sticky */}
         <div className="pt-12 sticky z-10 top-2 bg-primary dark:bg-dark-secondary">
           <h1 className="text-dark-primary text-xl md:3xl font-bold mb-2 dark:text-secondary ">
             Your Notes
@@ -69,34 +81,22 @@ const NotePage = () => {
           <hr className="border-t-2 border-muted shadow- my-4 mx-auto" />
         </div>
 
+        {/* notes container where all the notes will be kept */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
-          {loading && (
-            <h3 className="text-lg md:text-2xl font-semibold flex items-center justify-center col-span-3 gap-3 text-gray-700">
-              <span className="loading loading-spinner loading:sm lg:loading-lg animate-spin text-accent-1"></span>
-              <span className="text-accent-1">Fetching Notes...</span>
-            </h3>
-          )}
-          {notes.length === 0 && !loading && (
-            <div className="col-span-3 flex flex-col items-center justify-center p-10 rounded-lg space-y-4">
-              <h3 className="text-3xl font-bold text-gray-800 dark:text-white">
-                No Data Found!
-              </h3>
-              <p className="text-lg text-gray-600 dark:text-gray-300 text-center">
-                Create your first note to get started.
-              </p>
-              <Link
-                to="/create-note"
-                className="bg-accent-1 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition duration-300 hover:bg-accent-2 hover:shadow-xl"
-              >
-                Create Note
-              </Link>
-            </div>
-          )}
+          {/* show the loading spinner while fetching the notes */}
+          {loading && <FetchingNotes />}
+
+          {/* show the below code when notes is empty */}
+          {notes.length === 0 && !loading && <ForEmptyNotes />}
+
+          {/* show error if any */}
           {error && (
             <p className="transition duration-150 text-center bg-red-100 rounded px-2 py-2 text-base text-red-400">
               {error}
             </p>
           )}
+
+          {/* render all the notes from the database */}
           {!search &&
             !category &&
             !loading &&
@@ -104,12 +104,15 @@ const NotePage = () => {
               return <RenderNote note={note} key={note.id} />;
             })}
 
+          {/* show the specific note based on the search */}
           {search &&
             notes
               .filter((note) =>
                 note.title.toLowerCase().includes(search.toLowerCase())
               )
               .map((note) => <RenderNote note={note} key={note.id} />)}
+
+          {/* show the notes based on the category */}
           {category &&
             notes
               .filter(
@@ -119,18 +122,8 @@ const NotePage = () => {
         </div>
       </div>
 
-      {/* create note icon */}
-      <div
-        title="Create Note"
-        className="fixed bottom-8 right-5 w-14 h-14 rounded-full bg-accent-1 flex justify-center items-center border border-accent-1 shadow-2xl"
-      >
-        <Link
-          className="text-primary w-full h-full flex justify-center items-center"
-          to="/create-note"
-        >
-          <CreateIcon sx={{ fontSize: 30 }} />
-        </Link>
-      </div>
+      {/* create note icon that is fixed in the bottom right*/}
+      <CreateNoteIcon />
     </PageLayout>
   );
 };

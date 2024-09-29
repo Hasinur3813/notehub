@@ -13,8 +13,9 @@ const Modal = ({ onAction, setShowModal, loading, error }) => {
 
   const handleCloseModal = (e) => {
     if (e.target.id === "closeModal") {
-      setShowModal(false);
-      if (message || error) {
+      setMessage("");
+      !loading && setShowModal(false);
+      if (message) {
         navigate("/notes");
       }
     }
@@ -37,7 +38,7 @@ const Modal = ({ onAction, setShowModal, loading, error }) => {
         {message && <p className="text-accent-2 text-lg">{message}</p>}
         {!loading && !error && !message && (
           <>
-            <p className="text-center tex-base">
+            <p className="text-center text-xl">
               Are your sure you <br />
               want to <span className="text-red-400">delete</span> this note?
             </p>

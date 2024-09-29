@@ -21,6 +21,7 @@ const CreateNote = () => {
   const [btnText, setBtnText] = useState("Create Note");
   const navigate = useNavigate();
 
+  // Create the note for using it to update or create notes
   const createNoteObj = () => {
     return {
       title: title,
@@ -31,6 +32,7 @@ const CreateNote = () => {
     };
   };
 
+  // update the btn text based on the logic
   const updateBtnText = (isEditing, loading) => {
     if (loading) {
       return isEditing ? "Updating..." : "Creating note...";
@@ -38,20 +40,19 @@ const CreateNote = () => {
     return isEditing ? "Update" : "Create Note";
   };
 
+  // set the note content to the state for updating the note
   useEffect(() => {
     const isEditing = state && state.note;
     if (isEditing) {
       setTitle(state.note.title);
       setContent(state.note.description);
       setCategorey(state.note.category);
-    } else {
-      setTitle("");
-      setContent("");
-      setCategorey("");
     }
+
     setBtnText(updateBtnText(isEditing, loading));
   }, [state, loading]);
 
+  // create a new note
   const handleCreateNote = async (e) => {
     e.preventDefault();
 
@@ -73,21 +74,24 @@ const CreateNote = () => {
     }
   };
 
+  // update the specific note
   const handleUpdateNote = async (e) => {
     e.preventDefault();
     if (!category || !title.trim() || !content.trim()) {
       return setError("All the fields are required!");
     }
+    const note = createNoteObj();
 
     try {
       setLoading(true);
       setError(null);
-      await updateNote(state.note.id, createNoteObj());
+      await updateNote(state.note.id, note);
       setLoading(false);
-      navigate(`/notes/note/${state.note.id}`);
-      // navigate("/notes");
-    } catch (e) {
-      console.log(e);
+      navigate(`/notes/note/${state.note.id}`, {
+        state: { note: note },
+      });
+    } catch {
+      setError("Failed to update!");
       setLoading(false);
     }
   };
