@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/notehub/static/css/main.d050d679.css",
-    "main.js": "/notehub/static/js/main.e7b2aaac.js",
+    "main.css": "/notehub/static/css/main.57366c0a.css",
+    "main.js": "/notehub/static/js/main.491447bf.js",
     "static/js/453.13aae0d8.chunk.js": "/notehub/static/js/453.13aae0d8.chunk.js",
     "static/media/logo.png": "/notehub/static/media/logo.f181dccc8d7d1e5f087f.png",
     "static/media/banner.svg": "/notehub/static/media/banner.c51cb049d90bccef8379664527bc9ae6.svg",
     "index.html": "/notehub/index.html",
-    "main.d050d679.css.map": "/notehub/static/css/main.d050d679.css.map",
-    "main.e7b2aaac.js.map": "/notehub/static/js/main.e7b2aaac.js.map",
+    "main.57366c0a.css.map": "/notehub/static/css/main.57366c0a.css.map",
+    "main.491447bf.js.map": "/notehub/static/js/main.491447bf.js.map",
     "453.13aae0d8.chunk.js.map": "/notehub/static/js/453.13aae0d8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d050d679.css",
-    "static/js/main.e7b2aaac.js"
+    "static/css/main.57366c0a.css",
+    "static/js/main.491447bf.js"
   ]
 }
