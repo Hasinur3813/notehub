@@ -20,7 +20,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="bg-secondary dark:bg-dark-primary shadow-sm fixed top-0 left-0 w-full">
+    <div className="bg-secondary dark:bg-dark-primary shadow-sm fixed top-0 left-0 w-full z-50">
       <nav className="container-fluid mx-auto py-4 px-3 md:px-4 flex justify-between items-center">
         <Link
           to="/"

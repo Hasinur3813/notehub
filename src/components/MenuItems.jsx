@@ -41,7 +41,7 @@ const MenuItems = () => {
         <button
           onClick={handleLogout}
           type="button"
-          className="text-accent-2 text-base hover:bg-muted p-2 w-full text-left rounded"
+          className="text-red-400 text-base hover:bg-muted p-2 w-full text-left rounded"
         >
           Logout <LogoutIcon sx={{ fontSize: 20 }} />
         </button>

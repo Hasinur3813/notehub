@@ -53,11 +53,18 @@ const router = createBrowserRouter(
         },
         {
           path: "notes/note/:id",
-          element: <NoteView />,
+          element: <PrivateRoute />,
+          children: [{ path: "", element: <NoteView /> }],
         },
         {
           path: "create-note",
-          element: <CreateNote />,
+          element: <PrivateRoute />,
+          children: [
+            {
+              path: "",
+              element: <CreateNote />,
+            },
+          ],
         },
         {
           path: "*",

@@ -8,11 +8,11 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
-        primary: "#eff0f1",
+        primary: "#f5f9fd",
         secondary: "#FFFFFF",
         accent: {
-          1: "#4A90E2",
-          2: "#F76C6C",
+          1: "#26b3ce",
+          2: "#1e91a7",
         },
         dark: {
           primary: "#1A202C",
