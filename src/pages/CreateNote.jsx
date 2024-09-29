@@ -134,9 +134,9 @@ const CreateNote = () => {
             disabled={loading}
             type="submit"
             text={btnText}
-            className={`w-full px-4 py-2  text-white font-semibold rounded-lg shadow-md ${
-              !loading && "hover:bg-accent-2 bg-accent-1"
-            } transition duration-300 ${loading && "cursor-not-allowed"}`}
+            className={`w-full px-4 py-2  text-white font-semibold rounded-lg shadow-md hover:bg-accent-2 bg-accent-1 transition duration-300 ${
+              loading && "cursor-not-allowed"
+            }`}
           />
         </Form>
       </div>

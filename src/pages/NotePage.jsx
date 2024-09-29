@@ -7,7 +7,6 @@ import CreateIcon from "@mui/icons-material/Create";
 import { Link } from "react-router-dom";
 import { useNotes } from "../context/notesContext";
 import { AuthContext } from "../context/authContext";
-import { Button } from "../components/Button";
 
 const NotePage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -16,7 +15,7 @@ const NotePage = () => {
   const { notes, setNotes } = useNotes();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const RenderNote = ({ note }) => {
@@ -38,7 +37,6 @@ const NotePage = () => {
     const getNotes = async () => {
       try {
         setError(null);
-        setLoading(true);
         const notes = await fetchUserNotes(currentUser.uid);
         setNotes(notes);
         setLoading(false);
@@ -101,6 +99,7 @@ const NotePage = () => {
           )}
           {!search &&
             !category &&
+            !loading &&
             notes.map((note) => {
               return <RenderNote note={note} key={note.id} />;
             })}
