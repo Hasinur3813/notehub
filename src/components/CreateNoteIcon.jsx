@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CreateIcon from "@mui/icons-material/Create";
-
+import AddIcon from "@mui/icons-material/Add";
 const CreateNoteIcon = () => {
   return (
     <div
@@ -12,7 +11,7 @@ const CreateNoteIcon = () => {
         className="text-primary w-full h-full flex justify-center items-center"
         to="/create-note"
       >
-        <CreateIcon sx={{ fontSize: 30 }} />
+        <AddIcon sx={{ fontSize: 30 }} />
       </Link>
     </div>
   );

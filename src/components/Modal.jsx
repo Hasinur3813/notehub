@@ -2,18 +2,30 @@ import React, { useState } from "react";
 import { Button } from "./Button";
 import { useNavigate } from "react-router-dom";
 
-const Modal = ({ onAction, setShowModal, loading, error }) => {
+const Modal = ({ onAction, setShowModal, text, setNotes }) => {
   const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleAction = async () => {
-    await onAction();
-    setMessage("Successfully deleted!");
+    try {
+      setLoading(true);
+      setError(null);
+      setMessage(null);
+      await onAction();
+      setLoading(false);
+      setMessage("Succesfully deleted!");
+      setNotes && setNotes([]);
+    } catch {
+      setLoading(false);
+      setError("Failed to delete!");
+      setMessage("");
+    }
   };
 
   const handleCloseModal = (e) => {
     if (e.target.id === "closeModal") {
-      setMessage("");
       !loading && setShowModal(false);
       if (message) {
         navigate("/notes");
@@ -27,7 +39,7 @@ const Modal = ({ onAction, setShowModal, loading, error }) => {
       id="closeModal"
       className="fixed z-20 bg-opacity-50 inset-0 bg-slate-700 flex justify-center items-center"
     >
-      <div className="max-w-sm p-5 bg-primary rounded ">
+      <div className="max-w-sm p-10 bg-primary rounded ">
         {loading && (
           <h3 className="text-lg md:text-2xl font-semibold flex items-center justify-center col-span-3 gap-3 text-gray-700">
             <span className="loading loading-spinner loading:sm lg:loading-lg animate-spin text-red-500"></span>
@@ -38,12 +50,9 @@ const Modal = ({ onAction, setShowModal, loading, error }) => {
         {message && <p className="text-accent-2 text-lg">{message}</p>}
         {!loading && !error && !message && (
           <>
-            <p className="text-center text-xl">
-              Are your sure you <br />
-              want to <span className="text-red-400">delete</span> this note?
-            </p>
+            <p className="text-center text-xl">{text}</p>
 
-            <div className="flex justify-between mt-8 gap-8">
+            <div className="flex justify-center mt-8 gap-8">
               <Button
                 onClick={() => setShowModal(false)}
                 text="Cancel"

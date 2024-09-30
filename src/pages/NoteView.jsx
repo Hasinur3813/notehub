@@ -11,35 +11,19 @@ const NoteView = () => {
   const { notes, deleteNote } = useNotes();
   const { id } = useParams();
   const { state } = useLocation();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const filteredNote =
     state && state.note ? state.note : notes.find((note) => note.id === id);
-
-  const handleDelete = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      await deleteNote(id);
-      setLoading(false);
-    } catch {
-      setLoading(false);
-      setError("Failed to delete note!");
-    }
-  };
 
   return (
     <PageLayout className="flex justify-center">
       <div className="max-w-screen-xl w-full">
         {showModal && (
           <Modal
-            onAction={handleDelete}
+            onAction={() => deleteNote(id)}
             setShowModal={setShowModal}
-            loading={loading}
-            error={error}
+            text="Are your sure you want to delete this note?"
           />
         )}
         {/* header */}

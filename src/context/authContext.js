@@ -58,6 +58,7 @@ export const AuthProvider = ({ children }) => {
   //   logout
   const logout = async () => {
     signOut(auth);
+    window.location.reload();
   };
 
   const resetPassword = async (email) => {
