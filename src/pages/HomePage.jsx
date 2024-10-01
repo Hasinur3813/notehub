@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import BannerIllustrasion from "../components/BannerIllustrasion";
 import PageLayout from "../components/PageLayout";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 const HomePage = () => {
+  const { currentUser } = useContext(AuthContext);
   return (
     <PageLayout className="bg-gradient-to-r from-indigo-500 to-sky-500 dark:bg-none py-24">
       <div className="container mx-auto flex flex-col md:flex-row text-center md:text-left  md:justify-between gap-y-10 items-center h-full">
@@ -18,9 +20,9 @@ const HomePage = () => {
 
           <Link
             to="/notes"
-            className="bg-white text-accent-1 hover:bg-gray-100 mt-3 px-4 py-3 rounded"
+            className="bg-white text-accent-1 hover:bg-gray-100 mt-8 px-4 py-3 rounded"
           >
-            Get Started
+            {currentUser ? "Create a note" : "Get Started"}
           </Link>
         </div>
         <BannerIllustrasion />

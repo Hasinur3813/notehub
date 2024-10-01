@@ -9,6 +9,7 @@ import NoteView from "../pages/NoteView";
 import NotFound from "../pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import UserProfile from "../pages/UserProfile";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter(
@@ -66,6 +67,17 @@ const router = createBrowserRouter(
             },
           ],
         },
+        {
+          path: "profile",
+          element: <PrivateRoute />,
+          children: [
+            {
+              path: "",
+              element: <UserProfile />,
+            },
+          ],
+        },
+
         {
           path: "*",
           element: <NotFound />,

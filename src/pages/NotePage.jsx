@@ -99,12 +99,14 @@ const NotePage = () => {
             disabled={notes.length === 0}
             text="Clear All"
             type="button"
-            className={`text-red-600 ${notes.length === 0 && "text-red-300"}`}
+            className={` ${
+              notes.length === 0 ? "text-red-300" : "text-red-600"
+            }`}
             onClick={() => setShowModal(true)}
           />
         </div>
 
-        <hr className="border-t-2 border-muted shadow- my-4 mx-auto" />
+        <hr className="border-t-2 border-muted mx-auto" />
 
         {/* notes container where all the notes will be kept */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">

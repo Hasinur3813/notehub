@@ -17,7 +17,7 @@ const MenuItems = () => {
           className="hover:bg-muted dark:hover:bg-slate-700 p-2 rounded  block"
           href="/"
         >
-          Dashboard
+          Profile
         </a>
       </li>
       <li className="">
@@ -33,7 +33,7 @@ const MenuItems = () => {
           className="dark:hover:bg-slate-700 hover:bg-muted p-2 rounded  block"
           href="/"
         >
-          Archieve
+          Archive
         </a>
       </li>
       <hr className="text-muted rounded" />
