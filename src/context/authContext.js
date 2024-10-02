@@ -11,6 +11,9 @@ import {
   signOut,
 } from "firebase/auth";
 
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "@firebase/storage";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -64,6 +67,8 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (email) => {
     await sendPasswordResetEmail(auth, email);
   };
+
+  // update profile
 
   const value = {
     currentUser,

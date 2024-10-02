@@ -1,8 +1,16 @@
 import React from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Button } from "../components/Button";
-
-const ProfileHeading = ({ photoSrc, currentUser, handlePreview }) => {
+import avatar from "../assets/avatar.png";
+const ProfileHeading = ({
+  photoSrc,
+  currentUser,
+  handlePreview,
+  updateProfile,
+  loading,
+  isDisableUpload,
+  error,
+}) => {
   return (
     <div>
       <div className="h-36 max-w-xl mx-auto bg-gradient-to-r rounded from-sky-500 to-indigo-500"></div>
@@ -10,7 +18,7 @@ const ProfileHeading = ({ photoSrc, currentUser, handlePreview }) => {
       <div className="flex justify-center flex-col items-center -mt-16">
         <img
           id="img"
-          src={photoSrc}
+          src={photoSrc ? photoSrc : avatar}
           alt="Profile"
           className="rounded-full w-24 h-24 object-cover shadow ring-2 ring-offset-2 flex justify-center items-center"
         />
@@ -22,7 +30,7 @@ const ProfileHeading = ({ photoSrc, currentUser, handlePreview }) => {
         <div className="flex items-center gap-4 mt-4">
           <label
             htmlFor="uploadImg"
-            className="bg-accent-1 hover:bg-accent-2 px-3 py-2 rounded text-secondary"
+            className="border border-accent-1 text-accent-1 px-3 py-2 rounded cursor-pointer"
           >
             <CloudUploadIcon /> Choose a Photo
             <input
@@ -34,11 +42,16 @@ const ProfileHeading = ({ photoSrc, currentUser, handlePreview }) => {
           </label>
 
           <Button
+            onClick={updateProfile}
             type="button"
-            text="Update"
-            className="border border-accent-1  text-accent-1"
+            disabled={isDisableUpload}
+            text={loading ? "Uploading..." : "Upload"}
+            className={`${
+              isDisableUpload && "cursor-not-allowed bg-opacity-50"
+            } bg-accent-1  text-secondary`}
           />
         </div>
+        {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
       </div>
     </div>
   );
