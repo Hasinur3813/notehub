@@ -9,7 +9,6 @@ import Form from "../components/Form";
 import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
-import Snackbars from "../components/Snackbar";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,8 +19,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-
-  const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
@@ -39,14 +36,12 @@ const Signup = () => {
       setError(null);
       await signup(userName, email, password);
       setLoading(false);
-      setToast("success");
+
       navigate("/");
       console.log("login successful!");
     } catch (e) {
       setError("It seems the email is already in use!");
-      setToast("error");
       setLoading(false);
-      console.log(e.code);
     }
   };
 
@@ -124,14 +119,6 @@ const Signup = () => {
                 {error}
               </p>
             )}
-            {toast === "success" ? (
-              <Snackbars action="success" text="Successfully created account" />
-            ) : toast === "error" ? (
-              <Snackbars
-                action="error"
-                text="It seems the Email is already in use"
-              />
-            ) : null}
 
             <Button
               type="submit"

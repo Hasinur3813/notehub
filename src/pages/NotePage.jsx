@@ -48,6 +48,7 @@ const NotePage = () => {
       try {
         setError(null);
         const notes = await fetchUserNotes(currentUser.uid);
+        console.log("note page rendered");
         setNotes(notes);
         setLoading(false);
       } catch {
@@ -57,6 +58,7 @@ const NotePage = () => {
     };
 
     getNotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   return (
