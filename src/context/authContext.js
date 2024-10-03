@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -10,9 +10,6 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-
-import { storage } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "@firebase/storage";
 
 export const AuthContext = createContext();
 
@@ -72,6 +69,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
+    setCurrentUser,
     signup,
     login,
     logout,

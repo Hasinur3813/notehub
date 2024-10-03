@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import Hamburger from "./Hamburger";
 import MenuItems from "./MenuItems";
-import { SideBarContext } from "../context/SideBar";
+import { useSideBar } from "../context/SideBar";
 
 const SideBar = () => {
-  const { isSideBarOpen, setIsSideBarOpen } = useContext(SideBarContext);
+  const { isSideBarOpen, setIsSideBarOpen } = useSideBar();
 
   return (
     <div
       className={`w-52 h-full transition-all duration-200 ease-out ${
         !isSideBarOpen && "-translate-x-full"
-      } fixed top-[60px] lg:top-[65px] left-0 bg-secondary dark:bg-dark-primary z-20 lg:mt-px`}
+      } fixed top-[60px] sidebar lg:top-[65px] left-0 bg-secondary dark:bg-dark-primary z-20 lg:mt-px`}
     >
       <Hamburger
         isSideBarOpen={isSideBarOpen}

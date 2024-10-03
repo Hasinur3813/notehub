@@ -15,12 +15,12 @@ const ProfileHeading = ({
     <div>
       <div className="h-36 max-w-xl mx-auto bg-gradient-to-r rounded from-sky-500 to-indigo-500"></div>
 
-      <div className="flex justify-center flex-col items-center -mt-16">
+      <div className="flex justify-center flex-col items-center -mt-20">
         <img
           id="img"
           src={photoSrc ? photoSrc : avatar}
           alt="Profile"
-          className="rounded-full w-24 h-24 object-cover shadow ring-2 ring-offset-2 flex justify-center items-center"
+          className="rounded-full w-32 h-32 object-cover shadow ring-2 ring-offset-2 flex justify-center items-center"
         />
 
         {/* display name */}

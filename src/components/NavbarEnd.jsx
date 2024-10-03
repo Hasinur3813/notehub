@@ -1,13 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CreateIcon from "@mui/icons-material/Create";
+import avatar from "../assets/avatar.png";
 
 const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
   const navigate = useNavigate();
   const { currentUser, logout } = useContext(AuthContext);
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    // get the profile photo if any
+    if (currentUser && currentUser.photoURL) {
+      setUrl(currentUser.photoURL);
+    }
+  }, [currentUser]);
 
   const handleLogout = async () => {
     await logout();
@@ -52,8 +60,15 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
             <CreateIcon />
           </Link>
           <div className="hidden sm:flex justify-center items-center gap-1">
-            <Link to="/profile" className="flex gap-1">
-              <AccountCircleIcon sx={{ fontSize: 25 }} />
+            <Link to="/profile" className="flex items-center gap-2">
+              <div className="w-7 h-7">
+                <img
+                  className="rounded-full w-full h-full object-cover ring-1 ring-offset-1"
+                  alt="profile_photo"
+                  src={url ? url : avatar}
+                />
+              </div>
+
               <h4 className=" text-gray-500 text-base">
                 {currentUser.displayName}
               </h4>
@@ -63,7 +78,7 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
             onClick={handleLogout}
             type="button"
             title="Logout"
-            className="hidden sm:flex bg-slate-100 border border-accent-1 font-medium text-accent-1 rounded px-3  py-1 items-center"
+            className="hidden sm:flex bg-slate-100 border border-accent-1 font-medium text-red-400 rounded px-3  py-1 items-center"
           >
             <LogoutIcon sx={{ fontSize: 20 }} />
           </button>
@@ -71,9 +86,13 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
           <div className="dropdown dropdown-end sm:hidden">
             <div tabIndex={0} role="button" className="px-2">
               <div className="flex flex-col gap-[1px]">
-                <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
-                <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
-                <div className="w-[5px] h-[5px] rounded-full bg-accent-1"></div>
+                <div className="w-7 h-7">
+                  <img
+                    className="rounded-full w-full h-full object-cover ring-1 ring-offset-1"
+                    alt="profile_photo"
+                    src={url ? url : avatar}
+                  />
+                </div>
               </div>
             </div>
             <ul
@@ -81,14 +100,8 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-[1] min-w-52 mt-7 text-center p-2 shadow"
             >
               <li>
-                <Link to="/profile">
-                  <span className="flex justify-start items-center gap-1 mb-3">
-                    <AccountCircleIcon sx={{ fontSize: 25 }} />
-                    <h4 className=" text-gray-500 text-base">
-                      {currentUser.displayName}
-                    </h4>
-                  </span>
-                  <hr />
+                <Link className="text-base" to="/profile">
+                  User Profile
                 </Link>
               </li>
 
@@ -101,7 +114,7 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
                 <button
                   onClick={handleLogout}
                   type="button"
-                  className="text-accent-2 text-base"
+                  className="text-red-500 text-base"
                 >
                   Logout <LogoutIcon sx={{ fontSize: 20 }} />
                 </button>

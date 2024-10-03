@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { SideBarContext } from "../context/SideBar";
+import React from "react";
+import { useSideBar } from "../context/SideBar";
 
 const PageLayout = ({ children, className }) => {
-  const { isSideBarOpen } = useContext(SideBarContext);
+  const { isSideBarOpen } = useSideBar();
   return (
     <section
       className={` transition-all duration-200 ease-out overflow-y-auto w-full ${className} px-4 ${

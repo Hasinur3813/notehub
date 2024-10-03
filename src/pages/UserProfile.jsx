@@ -10,7 +10,7 @@ import { storage } from "../firebase";
 import { updateProfile } from "firebase/auth";
 
 const UserProfile = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [photoSrc, setPhotoSrc] = useState("");
   const [displayName, setDisplayName] = useState(currentUser.displayName || "");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -29,20 +29,12 @@ const UserProfile = () => {
     return isEditDisable ? "Change Name" : "Save Name";
   };
 
-  // get the profile photo url from the server and set it
+  // get the profile photo url set it
   useEffect(() => {
-    const fetchProfilePicture = async () => {
-      try {
-        const imageRef = ref(storage, `profilePicture/${currentUser.uid}`); //get the reference of the storage
-        const imageUrl = await getDownloadURL(imageRef); // getting the url
-        setPhotoSrc(imageUrl); //set the url to the state
-      } catch {
-        console.log("Error fetching profile picture");
-        setPhotoSrc("");
-      }
-    };
-
-    fetchProfilePicture();
+    if (currentUser && currentUser.photoURL) {
+      const url = currentUser.photoURL;
+      setPhotoSrc(url);
+    }
   }, [currentUser]);
 
   // preview the photo before uploading it
@@ -84,17 +76,22 @@ const UserProfile = () => {
       return;
     }
 
-    // make a reference of the user storage
+    // make a reference of the storage
     const storageRef = ref(storage, `profilePicture/${currentUser.uid}`);
 
     try {
       setPhotoSrc(null);
       setLoading(true);
       await uploadBytes(storageRef, selectedFile); //upload the file
-
       const url = await getDownloadURL(storageRef); // get the image url and set it to the state
+      await updateProfile(currentUser, {
+        //update the profile with photoURL
+        photoURL: url,
+      });
+      setCurrentUser((prev) => ({ ...prev, photoUrl: url })); //set the url to current user object to see the photo immediately
       setPhotoSrc(url);
       setLoading(false);
+      setIsDisableUpload(true);
     } catch (e) {
       setLoading(false);
       setError("Something went wrong!");
@@ -150,6 +147,7 @@ const UserProfile = () => {
           <TextInput
             type="text"
             onChange={(e) => setDisplayName(e.target.value)}
+            onBlur={() => setIsEditDisable(true)}
             disabled={isEditDisable}
             placeholder={currentUser.displayName}
             value={displayName}

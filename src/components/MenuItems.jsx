@@ -1,11 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
+import avatar from "../assets/avatar.png";
 
 const MenuItems = () => {
   const navigate = useNavigate();
-  const { logout } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    if (currentUser && currentUser.photoURL) {
+      setUrl(currentUser.photoURL);
+    }
+  }, [currentUser]);
+
   const handleLogout = async () => {
     await logout();
     navigate("/");
@@ -13,12 +22,25 @@ const MenuItems = () => {
   return (
     <ul className="space-y-2 py-2 dark:text-secondary">
       <li className="">
-        <a
-          className="hover:bg-muted dark:hover:bg-slate-700 p-2 rounded  block"
-          href="/"
+        <Link
+          to="/profile"
+          className="hover:bg-muted flex gap-2 dark:hover:bg-slate-700 p-2 rounded"
         >
-          Profile
-        </a>
+          <div className="w-7 h-7">
+            <img
+              className="rounded-full w-full h-full object-cover ring-1 ring-offset-1"
+              alt="profile_photo"
+              src={url ? url : avatar}
+            />
+          </div>
+
+          <h4 className=" text-gray-500 text-base">
+            {currentUser.displayName.length > 10
+              ? currentUser.displayName.slice(0, 10)
+              : currentUser.displayName}
+          </h4>
+        </Link>
+        <hr />
       </li>
       <li className="">
         <Link
@@ -29,12 +51,12 @@ const MenuItems = () => {
         </Link>
       </li>
       <li className="">
-        <a
+        <Link
           className="dark:hover:bg-slate-700 hover:bg-muted p-2 rounded  block"
-          href="/"
+          to="/"
         >
           Archive
-        </a>
+        </Link>
       </li>
       <hr className="text-muted rounded" />
       <li className="">
