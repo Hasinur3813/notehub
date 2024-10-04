@@ -15,7 +15,6 @@ const NoteView = () => {
 
   const filteredNote =
     state && state.note ? state.note : notes.find((note) => note.id === id);
-  console.log(filteredNote);
 
   return (
     <PageLayout className="flex justify-center">

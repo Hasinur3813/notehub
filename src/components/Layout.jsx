@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import { Outlet } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
-import { useSideBar } from "../context/SideBar";
 
 const Layout = () => {
   const { currentUser } = useContext(AuthContext);
