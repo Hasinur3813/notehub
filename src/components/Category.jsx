@@ -2,7 +2,7 @@ import React from "react";
 
 const Category = ({ category, onChange, className }) => {
   return (
-    <div className="">
+    <div>
       <select
         value={category}
         onChange={onChange}

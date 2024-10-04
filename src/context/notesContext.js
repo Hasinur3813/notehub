@@ -8,6 +8,7 @@ import {
   deleteDoc,
   query,
   where,
+  orderBy,
   getDocs,
 } from "@firebase/firestore";
 
@@ -24,7 +25,11 @@ const NotesProvider = ({ children }) => {
   const fetchUserNotes = async (userId) => {
     const docRef = collection(db, "notes");
 
-    const notesQuery = query(docRef, where("userId", "==", userId));
+    const notesQuery = query(
+      docRef,
+      orderBy("createdAt", "desc"),
+      where("userId", "==", userId)
+    );
 
     const snapShot = await getDocs(notesQuery);
     const notes = snapShot.docs.map((doc) => {

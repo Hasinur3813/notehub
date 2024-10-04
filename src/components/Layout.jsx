@@ -7,24 +7,6 @@ import { useSideBar } from "../context/SideBar";
 
 const Layout = () => {
   const { currentUser } = useContext(AuthContext);
-  const { isSideBarOpen, setIsSideBarOpen } = useSideBar();
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      // Check if the click is outside the sidebar and if the sidebar is open
-      if (isSideBarOpen && !event.target.closest(".sidebar")) {
-        setIsSideBarOpen(false);
-      }
-    };
-
-    // Attach the click event listener to the whole document
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup event listener when the component unmounts
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isSideBarOpen, setIsSideBarOpen]);
 
   return (
     <div className="">

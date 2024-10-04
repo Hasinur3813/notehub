@@ -26,9 +26,13 @@ const CreateNote = () => {
     return {
       title: title,
       description: content,
-      createdAt: new Date().toLocaleDateString(),
       category: category,
       userId: currentUser.uid,
+      createdAt: new Date().toLocaleString("en-GB", {
+        dateStyle: "short",
+        timeStyle: "short",
+        hour12: true,
+      }),
     };
   };
 

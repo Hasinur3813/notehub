@@ -35,8 +35,8 @@ const MenuItems = () => {
           </div>
 
           <h4 className=" text-gray-500 text-base">
-            {currentUser.displayName.length > 10
-              ? currentUser.displayName.slice(0, 10)
+            {currentUser.displayName.length > 15
+              ? currentUser.displayName.slice(0, 15)
               : currentUser.displayName}
           </h4>
         </Link>

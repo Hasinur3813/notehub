@@ -47,13 +47,14 @@ const NotePage = () => {
     const getNotes = async () => {
       try {
         setError(null);
-        const notes = await fetchUserNotes(currentUser.uid);
-        console.log("note page rendered");
+        const notes = await fetchUserNotes(currentUser.uid); //fetching the note from the server
+
         setNotes(notes);
         setLoading(false);
-      } catch {
+      } catch (e) {
         setLoading(false);
         setError("Error fetching notes!");
+        console.log(e);
       }
     };
 
@@ -120,7 +121,7 @@ const NotePage = () => {
 
           {/* show error if any */}
           {error && (
-            <p className="transition duration-150 text-center bg-red-100 rounded px-2 py-2 text-base text-red-400">
+            <p className="col-span-3 transition duration-150 text-center bg-red-100 rounded px-2 py-2 text-base text-red-400">
               {error}
             </p>
           )}

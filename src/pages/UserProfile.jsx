@@ -107,6 +107,10 @@ const UserProfile = () => {
       return setIsEditDisable(false); // if the input field is disable then return from this function by setting it enable
     }
 
+    //return an error if the input field is empty
+    if (!displayName || !displayName.trim()) {
+      return setNameChangeError("Write your name first!");
+    }
     // if all is ok then change the name
     try {
       setNameChangeError(null);
@@ -118,12 +122,10 @@ const UserProfile = () => {
 
       setIsSaving(false);
       setIsSaved(true);
-
-      console.log(currentUser);
+      setIsEditDisable(true);
     } catch (e) {
       setIsSaving(false);
       setNameChangeError("Something went wrong!");
-      console.log(e);
     }
   };
 

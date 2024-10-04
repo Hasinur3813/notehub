@@ -15,6 +15,7 @@ const NoteView = () => {
 
   const filteredNote =
     state && state.note ? state.note : notes.find((note) => note.id === id);
+  console.log(filteredNote);
 
   return (
     <PageLayout className="flex justify-center">
@@ -35,13 +36,15 @@ const NoteView = () => {
           {/* catergory and created date */}
           <div className="flex justify-between space-x-4">
             <span className="text-gray-500 text-sm">
-              <strong>Category:</strong>{" "}
+              <strong>Category: </strong>
+              {"  "}
               <span className="bg-accent-1 px-2 py-1 text-primary rounded">
                 {filteredNote.category}
               </span>
             </span>
             <span className="text-gray-500 text-sm">
-              <strong>Created:</strong> {filteredNote.createdAt}
+              <strong>Created:</strong>
+              {filteredNote.createdAt}
             </span>
           </div>
           <hr className="mt-4" />
