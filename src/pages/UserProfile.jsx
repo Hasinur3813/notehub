@@ -7,7 +7,7 @@ import ProfileHeading from "../components/ProfileHeading";
 import { Button } from "../components/Button";
 import { ref, uploadBytes, getDownloadURL } from "@firebase/storage";
 import { storage } from "../firebase";
-import { updateProfile } from "firebase/auth";
+import { updateProfile, reload } from "firebase/auth";
 
 const UserProfile = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
@@ -88,6 +88,7 @@ const UserProfile = () => {
         //update the profile with photoURL
         photoURL: url,
       });
+      await reload(currentUser);
       setCurrentUser((prev) => ({ ...prev, photoUrl: url })); //set the url to current user object to see the photo immediately
       setPhotoSrc(url);
       setLoading(false);

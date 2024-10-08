@@ -10,6 +10,7 @@ import ForEmptyNotes from "../components/ForEmptyNotes";
 import FetchingNotes from "../components/FetchingNotes";
 import { Button } from "../components/Button";
 import Modal from "../components/Modal";
+import NoMatchNotes from "../components/NoMatchNotes";
 
 const NotePage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -51,16 +52,20 @@ const NotePage = () => {
 
         setNotes(notes);
         setLoading(false);
-      } catch (e) {
+      } catch {
         setLoading(false);
         setError("Error fetching notes!");
-        console.log(e);
       }
     };
 
     getNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+  };
 
   return (
     <PageLayout>
@@ -81,7 +86,7 @@ const NotePage = () => {
           <SearchInput
             onBlur={() => setSearch("")}
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearch}
           />
           <Category
             value={category}
@@ -116,15 +121,15 @@ const NotePage = () => {
           {/* show the loading spinner while fetching the notes */}
           {loading && <FetchingNotes />}
 
-          {/* show the below code when notes is empty */}
-          {notes.length === 0 && !loading && <ForEmptyNotes />}
-
           {/* show error if any */}
           {error && (
             <p className="col-span-3 transition duration-150 text-center bg-red-100 rounded px-2 py-2 text-base text-red-400">
               {error}
             </p>
           )}
+
+          {/* show the below code when notes is empty */}
+          {notes.length === 0 && !loading && <ForEmptyNotes />}
 
           {/* render all the notes from the database */}
           {!search &&
@@ -136,19 +141,36 @@ const NotePage = () => {
 
           {/* show the specific note based on the search */}
           {search &&
-            notes
-              .filter((note) =>
-                note.title.toLowerCase().includes(search.toLowerCase())
-              )
-              .map((note) => <RenderNote note={note} key={note.id} />)}
+            !category &&
+            (notes.filter((note) =>
+              note.title.toLowerCase().includes(search.toLowerCase())
+            ).length > 0 ? (
+              notes
+                .filter((note) =>
+                  note.title.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((note) => <RenderNote note={note} key={note.id} />)
+            ) : (
+              <NoMatchNotes />
+            ))}
+
+          {search && category && <NoMatchNotes />}
 
           {/* show the notes based on the category */}
           {category &&
-            notes
-              .filter(
-                (note) => note.category.toLowerCase() === category.toLowerCase()
-              )
-              .map((note) => <RenderNote note={note} key={note.id} />)}
+            !search &&
+            (notes.filter(
+              (note) => note.category.toLowerCase() === category.toLowerCase()
+            ).length > 0 ? (
+              notes
+                .filter(
+                  (note) =>
+                    note.category.toLowerCase() === category.toLowerCase()
+                )
+                .map((note) => <RenderNote note={note} key={note.id} />)
+            ) : (
+              <NoMatchNotes />
+            ))}
         </div>
       </div>
 

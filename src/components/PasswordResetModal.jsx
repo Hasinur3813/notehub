@@ -61,7 +61,7 @@ const PasswordResetModal = ({ setIsOpenModal }) => {
 
           <Button
             type="submit"
-            className="text-center border border-accent-1 block w-full bg-accent-1 text-primary rounded-md hover:bg-blue-500 mx-auto"
+            className="text-center border border-accent-1 block w-full bg-accent-1 text-primary rounded-md hover:bg-accent-2 mx-auto"
             text={loading ? "Sending..." : "Send password reset email"}
           />
         </Form>

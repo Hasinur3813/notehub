@@ -128,7 +128,7 @@ const NavbarEnd = ({ onThemeChange, noteHubTheme }) => {
         <>
           <Link
             to="/signup"
-            className="lg:ms-4 bg-accent-1 text-white rounded px-4 lg:text-lg hover:bg-blue-500 py-1 hidden sm:block"
+            className="lg:ms-4 bg-accent-1 text-white rounded px-4 lg:text-lg hover:bg-accent-2 py-1 hidden sm:block"
           >
             Signup
           </Link>
