@@ -83,11 +83,7 @@ const NotePage = () => {
       <div className="pt-14 lg:pt-20">
         {/* search input and category */}
         <div className="flex flex-col sm:flex-row gap-y-4 sm:gap-y-0 justify-between items-center">
-          <SearchInput
-            onBlur={() => setSearch("")}
-            value={search}
-            onChange={handleSearch}
-          />
+          <SearchInput value={search} onChange={handleSearch} />
           <Category
             value={category}
             onChange={(e) => setCategory(e.target.value)}

@@ -1,80 +1,61 @@
-#Note App
+# NoteHub
+
 A web-based note-taking app where users can sign up, log in, create, read, update, and delete (CRUD) notes. The app also supports searching notes and categorizing them for easy access. Users can personalize their profile by updating their profile picture and changing their display name.
 
-#Features
-User Authentication:
+## Features
 
-Firebase Authentication allows users to sign up and log in securely.
-Notes Management:
+### User Authentication
 
-Users can perform CRUD operations on their notes:
-Create new notes.
-Read and view existing notes.
-Update existing notes.
-Delete notes.
-Category System:
+- Secure sign-up and login with Firebase Authentication.
 
-Users can organize their notes by selecting or creating categories.
-Easily view notes by category for a more organized experience.
-Search Functionality:
+### Notes Management
 
-Search for notes by keywords to find content quickly.
-Profile Management:
+- **Create** new notes.
+- **Read** and view existing notes.
+- **Update** existing notes.
+- **Delete** notes.
 
-Users can update their profile picture via Firebase Storage.
-Edit their display name directly from the profile page.
-Responsive Design:
+### Category System
 
-The app is fully responsive and works seamlessly across desktop, tablet, and mobile devices.
-Technologies Used
-Frontend:
+- Organize notes by selecting or creating categories.
+- Easily view notes by category for a more organized experience.
 
-React: For building the user interface.
-Tailwind CSS: For styling and creating responsive, modern UI components.
-Material UI (MUI): For additional UI components.
-Daisy UI: Tailwind CSS components library for pre-designed UI elements.
-Backend:
+### Search Functionality
 
-Firebase Authentication: For user sign-up and login functionality.
-Firestore: To store and manage user notes securely.
-Firebase Storage: For uploading and storing user profile pictures.
-Note App
-A web-based note-taking app where users can sign up, log in, create, read, update, and delete (CRUD) notes. The app also supports searching notes and categorizing them for easy access. Users can personalize their profile by updating their profile picture and changing their display name.
+- Search for notes by keywords to find content quickly.
 
-Features
-User Authentication:
+### Profile Management
 
-Firebase Authentication allows users to sign up and log in securely.
-Notes Management:
+- Update profile picture via Firebase Storage.
+- Edit display name directly from the profile page.
 
-Users can perform CRUD operations on their notes:
-Create new notes.
-Read and view existing notes.
-Update existing notes.
-Delete notes.
-Category System:
+### Responsive Design
 
-Users can organize their notes by selecting or creating categories.
-Easily view notes by category for a more organized experience.
-Search Functionality:
+- Fully responsive design that works seamlessly across desktop, tablet, and mobile devices.
 
-Search for notes by keywords to find content quickly.
-Profile Management:
+## Technologies Used
 
-Users can update their profile picture via Firebase Storage.
-Edit their display name directly from the profile page.
-Responsive Design:
+### Frontend
 
-The app is fully responsive and works seamlessly across desktop, tablet, and mobile devices.
-Technologies Used
-Frontend:
+- **React**: For building the user interface.
+- **Tailwind CSS**: For styling and creating responsive, modern UI components.
+- **Material UI (MUI)**: For additional UI components.
+- **Daisy UI**: Tailwind CSS components library for pre-designed UI elements.
 
-React: For building the user interface.
-Tailwind CSS: For styling and creating responsive, modern UI components.
-Material UI (MUI): For additional UI components.
-Daisy UI: Tailwind CSS components library for pre-designed UI elements.
-Backend:
+### Backend
 
-Firebase Authentication: For user sign-up and login functionality.
-Firestore: To store and manage user notes securely.
-Firebase Storage: For uploading and storing user profile pictures.
+- **Firebase Authentication**: For user sign-up and login functionality.
+- **Firestore**: To store and manage user notes securely.
+- **Firebase Storage**: For uploading and storing user profile pictures.
+
+## Acknowledgements
+
+- React
+- Tailwind CSS
+- Firebase
+- Material UI
+- Daisy UI
+
+### Live Preview
+
+[View the project live](https://hasinur3813.github.io/notehub)
