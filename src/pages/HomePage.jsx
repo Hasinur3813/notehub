@@ -22,7 +22,7 @@ const HomePage = () => {
             to="/notes"
             className="bg-white text-accent-2 text-lg hover:bg-gray-100 mt-8 px-4 py-3 rounded"
           >
-            {currentUser ? "Create a note" : "Get Started"}
+            {currentUser ? "Explore" : "Get Started"}
           </Link>
         </div>
 

@@ -33,6 +33,7 @@ const CreateNote = () => {
         timeStyle: "short",
         hour12: true,
       }),
+      isTrashed: false,
     };
   };
 

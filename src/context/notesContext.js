@@ -10,6 +10,7 @@ import {
   where,
   orderBy,
   getDocs,
+  writeBatch,
 } from "@firebase/firestore";
 
 const NotesContext = createContext();
@@ -22,7 +23,7 @@ const NotesProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
 
   // fetch notes
-  const fetchUserNotes = async (userId) => {
+  const fetchUserNotes = async (userId, isTrashed) => {
     const docRef = collection(db, "notes");
 
     const notesQuery = query(
@@ -36,7 +37,9 @@ const NotesProvider = ({ children }) => {
       return { ...doc.data(), id: doc.id };
     });
 
-    return notes;
+    return isTrashed
+      ? notes.filter((note) => note.isTrashed === true)
+      : notes.filter((note) => note.isTrashed === false);
   };
 
   // add note functionality
@@ -47,11 +50,26 @@ const NotesProvider = ({ children }) => {
     return doc.id;
   };
 
-  // updating note
+  // update a single note
 
   const updateNote = async (noteId, updatedNote) => {
     const docRef = doc(db, "notes", noteId);
     await updateDoc(docRef, updatedNote);
+  };
+
+  // batch update
+
+  const batchUpdate = async (notes) => {
+    const batch = writeBatch(db);
+
+    notes.forEach((note) => {
+      const docRef = doc(db, "notes", note.id);
+      batch.update(docRef, {
+        ...note,
+        isTrashed: true,
+      });
+    });
+    await batch.commit();
   };
 
   // delete a single note
@@ -72,7 +90,6 @@ const NotesProvider = ({ children }) => {
       const docRef = doc(db, "notes", document.id);
       await deleteDoc(docRef);
     });
-    console.log(batch);
     await Promise.all(batch);
   };
 
@@ -84,6 +101,7 @@ const NotesProvider = ({ children }) => {
     updateNote,
     deleteNote,
     batchDelete,
+    batchUpdate,
   };
 
   return (

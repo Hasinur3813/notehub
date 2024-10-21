@@ -11,11 +11,11 @@ import FetchingNotes from "../components/FetchingNotes";
 import { Button } from "../components/Button";
 import Modal from "../components/Modal";
 import NoMatchNotes from "../components/NoMatchNotes";
+import { useLocation } from "react-router-dom";
 
 const NotePage = () => {
   const { currentUser } = useContext(AuthContext);
-  const { fetchUserNotes, batchDelete } = useNotes();
-
+  const { fetchUserNotes, batchUpdate } = useNotes();
   const { notes, setNotes } = useNotes();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
@@ -41,6 +41,9 @@ const NotePage = () => {
     );
   };
 
+  const { state } = useLocation();
+  console.log(state);
+
   useEffect(() => {
     if (!currentUser) {
       return;
@@ -48,8 +51,7 @@ const NotePage = () => {
     const getNotes = async () => {
       try {
         setError(null);
-        const notes = await fetchUserNotes(currentUser.uid); //fetching the note from the server
-
+        const notes = await fetchUserNotes(currentUser.uid, false); //fetching the note from the server
         setNotes(notes);
         setLoading(false);
       } catch {
@@ -73,7 +75,7 @@ const NotePage = () => {
         <Modal
           text="Are you sure you want to delete all the notes?"
           setShowModal={setShowModal}
-          onAction={() => batchDelete(currentUser.uid)}
+          onAction={() => batchUpdate(notes)}
           setNotes={setNotes}
           loading={loading}
           error={error}
@@ -131,9 +133,11 @@ const NotePage = () => {
           {!search &&
             !category &&
             !loading &&
-            notes.map((note) => {
-              return <RenderNote note={note} key={note.id} />;
-            })}
+            notes
+              .filter((note) => note.isTrashed !== true)
+              .map((note) => {
+                return <RenderNote note={note} key={note.id} />;
+              })}
 
           {/* show the specific note based on the search */}
           {search &&
