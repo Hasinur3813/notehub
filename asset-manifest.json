@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/notehub/static/css/main.34ea6512.css",
-    "main.js": "/notehub/static/js/main.ab6f9be1.js",
+    "main.css": "/notehub/static/css/main.4fb76ba0.css",
+    "main.js": "/notehub/static/js/main.d3ba0b79.js",
     "static/js/453.13aae0d8.chunk.js": "/notehub/static/js/453.13aae0d8.chunk.js",
     "static/media/avatar.png": "/notehub/static/media/avatar.167bd717872aa456eea1.png",
     "static/media/logo.png": "/notehub/static/media/logo.f181dccc8d7d1e5f087f.png",
     "static/media/banner.svg": "/notehub/static/media/banner.c51cb049d90bccef8379664527bc9ae6.svg",
     "index.html": "/notehub/index.html",
-    "main.34ea6512.css.map": "/notehub/static/css/main.34ea6512.css.map",
-    "main.ab6f9be1.js.map": "/notehub/static/js/main.ab6f9be1.js.map",
+    "main.4fb76ba0.css.map": "/notehub/static/css/main.4fb76ba0.css.map",
+    "main.d3ba0b79.js.map": "/notehub/static/js/main.d3ba0b79.js.map",
     "453.13aae0d8.chunk.js.map": "/notehub/static/js/453.13aae0d8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.34ea6512.css",
-    "static/js/main.ab6f9be1.js"
+    "static/css/main.4fb76ba0.css",
+    "static/js/main.d3ba0b79.js"
   ]
 }
