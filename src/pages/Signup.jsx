@@ -38,8 +38,7 @@ const Signup = () => {
       setLoading(false);
 
       navigate("/");
-      console.log("login successful!");
-    } catch (e) {
+    } catch {
       setError("It seems the email is already in use!");
       setLoading(false);
     }

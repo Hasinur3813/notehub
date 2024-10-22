@@ -11,7 +11,6 @@ import FetchingNotes from "../components/FetchingNotes";
 import { Button } from "../components/Button";
 import Modal from "../components/Modal";
 import NoMatchNotes from "../components/NoMatchNotes";
-import { useLocation } from "react-router-dom";
 
 const NotePage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -40,9 +39,6 @@ const NotePage = () => {
       />
     );
   };
-
-  const { state } = useLocation();
-  console.log(state);
 
   useEffect(() => {
     if (!currentUser) {

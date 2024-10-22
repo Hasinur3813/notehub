@@ -11,7 +11,6 @@ const ProfileHeading = ({
   isDisableUpload,
   error,
 }) => {
-  console.log(photoSrc);
   return (
     <div>
       <div className="h-36 max-w-xl mx-auto bg-gradient-to-r rounded from-sky-500 to-indigo-500"></div>

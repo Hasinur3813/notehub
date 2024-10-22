@@ -44,6 +44,7 @@ const Login = () => {
       setError(null);
       await signInWithGoogle();
       setLoading(false);
+      navigate("/");
     } catch (e) {
       setError(e.code);
       console.log(e.code);

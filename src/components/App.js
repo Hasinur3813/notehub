@@ -48,7 +48,7 @@ const router = createBrowserRouter(
           element: <PrivateRoute />,
           children: [
             {
-              path: "",
+              path: "/notes",
               element: <NotePage />,
             },
           ],

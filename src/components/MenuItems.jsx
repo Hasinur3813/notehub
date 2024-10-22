@@ -1,27 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../context/authContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import avatar from "../assets/avatar.png";
-import { useSideBar } from "../context/SideBar";
 
 const MenuItems = () => {
   const navigate = useNavigate();
   const { currentUser, logout } = useContext(AuthContext);
-  const { setIsSideBarOpen } = useSideBar();
   const [url, setUrl] = useState("");
-  const [activeLink, setActiveLink] = useState("");
-
-  const handleLinkClick = (link) => {
-    const screenSize = window.innerWidth;
-
-    setActiveLink(link);
-
-    // close the sidebar after moving another page
-    if (screenSize < "768") {
-      setIsSideBarOpen(false);
-    }
-  };
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (currentUser && currentUser.photoURL) {
@@ -29,13 +16,13 @@ const MenuItems = () => {
     }
   }, [currentUser]);
 
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    logout();
     navigate("/");
   };
   return (
-    <div className="flex flex-col justify-between items-center ">
-      <ul className="space-y-2 py-2 dark:text-secondary">
+    <div className="flex flex-col justify-between items-start ">
+      <ul className="space-y-2 py-2 dark:text-secondary w-full">
         <li className="">
           <Link
             to="/profile"
@@ -50,19 +37,21 @@ const MenuItems = () => {
             </div>
 
             <h4 className=" text-gray-500 text-base">
-              {currentUser.displayName.length > 15
-                ? currentUser.displayName.slice(0, 15)
-                : currentUser.displayName}
+              {currentUser && currentUser.displayName
+                ? currentUser.displayName.length > 15
+                  ? currentUser.displayName.slice(0, 15)
+                  : currentUser.displayName
+                : "Anonymous"}
             </h4>
           </Link>
           <hr />
         </li>
         <li className="">
           <Link
-            onClick={() => handleLinkClick("notes")}
             className={`${
-              activeLink === "notes" ? "text-accent-1" : "text-secondaryColor"
-            } dark:hover:bg-slate-700 hover:bg-muted hover:translate-x-1 transition-all duration-150 ease-linear p-2 rounded  block`}
+              pathname === "/notes" ? "text-accent-1" : "text-secondaryColor"
+            }
+             dark:hover:bg-slate-700 hover:bg-muted hover:translate-x-1 transition-all duration-150 ease-linear p-2 rounded  block`}
             to="/notes"
           >
             Notes
@@ -70,10 +59,10 @@ const MenuItems = () => {
         </li>
         <li className="">
           <Link
-            onClick={() => handleLinkClick("archive")}
             className={`${
-              activeLink === "archive" ? "text-accent-1" : "text-secondaryColor"
-            } dark:hover:bg-slate-700 hover:bg-muted hover:translate-x-1 transition-all duration-150 ease-linear p-2 rounded  block`}
+              pathname === "/archive" ? "text-accent-1" : "text-secondaryColor"
+            }
+             dark:hover:bg-slate-700 hover:bg-muted hover:translate-x-1 transition-all duration-150 ease-linear p-2 rounded  block`}
             to="/archive"
           >
             Archive

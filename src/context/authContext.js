@@ -22,8 +22,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setLoading(false);
     });
-    setLoading(false);
+
     return () => unsubscribe();
   }, []);
 
@@ -47,6 +48,9 @@ export const AuthProvider = ({ children }) => {
     await updateProfile(user, {
       displayName: userName,
     });
+
+    setCurrentUser(user);
+    await user.reload();
   };
 
   //   login functionality
@@ -56,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   //   logout
-  const logout = async () => {
+  const logout = () => {
     signOut(auth);
     window.location.reload();
   };
