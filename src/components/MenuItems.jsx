@@ -3,10 +3,12 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../context/authContext";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import avatar from "../assets/avatar.png";
+import { useSideBar } from "../context/SideBar";
 
 const MenuItems = () => {
   const navigate = useNavigate();
   const { currentUser, logout } = useContext(AuthContext);
+  const { setIsSideBarOpen } = useSideBar();
   const [url, setUrl] = useState("");
   const { pathname } = useLocation();
 
@@ -20,11 +22,19 @@ const MenuItems = () => {
     logout();
     navigate("/");
   };
+
+  const handleSidebarclose = () => {
+    const screenSize = window.innerWidth;
+
+    screenSize < "768" && setIsSideBarOpen(false);
+  };
+
   return (
     <div className="flex flex-col justify-between items-start ">
       <ul className="space-y-2 py-2 dark:text-secondary w-full">
         <li className="">
           <Link
+            onClick={() => handleSidebarclose()}
             to="/profile"
             className="hover:bg-muted flex gap-2 dark:hover:bg-slate-700 p-2 rounded"
           >
@@ -48,6 +58,7 @@ const MenuItems = () => {
         </li>
         <li className="">
           <Link
+            onClick={() => handleSidebarclose()}
             className={`${
               pathname === "/notes" ? "text-accent-1" : "text-secondaryColor"
             }
@@ -59,6 +70,7 @@ const MenuItems = () => {
         </li>
         <li className="">
           <Link
+            onClick={() => handleSidebarclose()}
             className={`${
               pathname === "/archive" ? "text-accent-1" : "text-secondaryColor"
             }
