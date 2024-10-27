@@ -11,11 +11,17 @@ const Archive = () => {
   const { currentUser } = useContext(AuthContext);
   const { fetchUserNotes, deleteNote, batchUpdate } = useNotes();
   const [trashed, setTrashed] = useState([]);
-  const [loading, setLoading] = useState({ fetchNote: true, restore: false });
   const [error, setError] = useState(null);
   const [selectedNotes, setSelectedNotes] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [singleNoteId, setSingleNoteId] = useState(null);
+  const [selectAll, setSelectAll] = useState(false);
+
+  const [loading, setLoading] = useState({
+    fetchNote: true,
+    restoreSelected: false,
+    singleRestore: {},
+  });
 
   useEffect(() => {
     const getTrashed = async () => {
@@ -35,6 +41,15 @@ const Archive = () => {
     }
   }, [currentUser, fetchUserNotes, selectedNotes]);
 
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+    if (!selectAll) {
+      setSelectedNotes(trashed);
+    } else {
+      setSelectedNotes([]);
+    }
+  };
+
   const handleShowModal = (id) => {
     setShowModal(true);
     setSingleNoteId(id);
@@ -45,15 +60,26 @@ const Archive = () => {
     setSingleNoteId(null);
   };
   const handleRestore = async (note) => {
-    await batchUpdate([note], "notIsTrashed");
-    setSelectedNotes(selectedNotes.filter((n) => n.id !== note.id));
-    setSingleNoteId(null);
+    setLoading((state) => ({
+      ...state,
+      singleRestore: { [note.id]: true },
+    }));
+
+    try {
+      await batchUpdate([note], "notIsTrashed");
+      setSelectedNotes((prev) => prev.filter((n) => n.id !== note.id));
+    } finally {
+      setLoading((state) => ({
+        ...state,
+        singleRestore: {},
+      }));
+    }
   };
 
   const handleBatchRestore = async () => {
-    setLoading((state) => ({ ...state, restore: true }));
+    setLoading((state) => ({ ...state, restoreSelected: true }));
     await batchUpdate(selectedNotes, "notIsTrashed");
-    setLoading((state) => ({ ...state, restore: false }));
+    setLoading((state) => ({ ...state, restoreSelected: false }));
     setSelectedNotes([]);
   };
 
@@ -68,6 +94,11 @@ const Archive = () => {
     }
   };
 
+  // const handleSelectAll = (note) => {
+  //   const all = [];
+  //   all.push(note);
+  //   console.log(all);
+  // };
   return (
     <PageLayout className="mt-14">
       <div className="pb-5">
@@ -84,23 +115,32 @@ const Archive = () => {
           </h1>
 
           <div className="flex gap-3 justify-center">
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                  className="checkbox checkbox-primary"
+                />
+                <span className="label-text">Select All</span>
+              </label>
+            </div>
             <Button
               onClick={handleBatchRestore}
               disabled={selectedNotes.length < 2}
-              text={`${
-                loading.restore ? "Restoring..." : "Restore Seletected"
-              }`}
+              text={`${loading.restoreSelected ? "Restoring..." : "Restore"}`}
               className={`${
                 selectedNotes.length < 2 && "cursor-not-allowed opacity-50"
               } border border-accent-1  transition-all duration-200 !px-2 md:px-6 !py-1 lg:py-2 !text-base 
                text-accent-2`}
             />
             <Button
-              text="Delete Selected"
+              text="Delete"
               className={`${
                 selectedNotes.length < 2 && "cursor-not-allowed opacity-50"
               }  transition-all duration-200 !px-2 md:px-6 !py-1 lg:py-2 !text-base 
-               bg-red-300 text-red-600`}
+               bg-red-200 border border-red-500 text-red-500`}
             />
           </div>
         </div>
@@ -108,15 +148,19 @@ const Archive = () => {
         <hr />
 
         {loading.fetchNote && (
-          <div className="flex justify-center items-center h-full">
+          <div className="flex justify-center my-20">
             <CircularProgress />
           </div>
         )}
 
-        {error && <div className="text-red-500 text-center">{error}</div>}
+        {error && (
+          <div className="text-red-500 text-center text-xl lg:text-3xl my-20">
+            {error}
+          </div>
+        )}
 
         {!loading.fetchNote && !error && trashed.length === 0 && (
-          <div className="text-center text-gray-500">
+          <div className="text-center text-gray-500 text-xl lg:text-3xl my-20">
             No archived notes available.
           </div>
         )}
@@ -130,6 +174,8 @@ const Archive = () => {
                 onDelete={handleShowModal}
                 onRestore={handleRestore}
                 handleSelectedNote={handleSelectedNote}
+                loading={loading}
+                selectAll={selectAll}
               />
             ))}
           </div>

@@ -2,8 +2,15 @@
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete"; // MUI delete icon
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
 
-const ArchivedNote = ({ note, onDelete, onRestore, handleSelectedNote }) => {
+const ArchivedNote = ({
+  note,
+  onDelete,
+  onRestore,
+  handleSelectedNote,
+  loading,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isNoteClicked, setIsNoteClicked] = useState(false);
 
@@ -52,16 +59,24 @@ const ArchivedNote = ({ note, onDelete, onRestore, handleSelectedNote }) => {
         {isChecked && (
           <div className="flex space-x-2">
             <button
+              disabled={loading.singleRestore[note.id]}
               onClick={() => onRestore(note)}
               className="text-green-500 hover:text-green-700"
             >
-              <RestoreFromTrashIcon sx={{ fontSize: 30 }} />
+              {loading.singleRestore[note.id] ? (
+                <AutorenewIcon
+                  className=" text-accent-1 animate-spin"
+                  sx={{ fontSize: 25 }}
+                />
+              ) : (
+                <RestoreFromTrashIcon sx={{ fontSize: 25 }} />
+              )}
             </button>
             <button
               onClick={() => onDelete(note.id)}
               className="text-red-500 hover:text-red-700"
             >
-              <DeleteIcon sx={{ fontSize: 30 }} />
+              <DeleteIcon sx={{ fontSize: 25 }} />
             </button>
           </div>
         )}
