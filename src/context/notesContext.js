@@ -59,15 +59,22 @@ const NotesProvider = ({ children }) => {
 
   // batch update
 
-  const batchUpdate = async (notes) => {
+  const batchUpdate = async (notes, action) => {
     const batch = writeBatch(db);
 
     notes.forEach((note) => {
       const docRef = doc(db, "notes", note.id);
-      batch.update(docRef, {
-        ...note,
-        isTrashed: true,
-      });
+      if (action === "trashed") {
+        batch.update(docRef, {
+          ...note,
+          isTrashed: true,
+        });
+      } else {
+        batch.update(docRef, {
+          ...note,
+          isTrashed: false,
+        });
+      }
     });
     await batch.commit();
   };

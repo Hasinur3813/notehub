@@ -9,8 +9,8 @@ const ArchivedNote = ({ note, onDelete, onRestore, handleSelectedNote }) => {
 
   useEffect(() => {
     isChecked
-      ? handleSelectedNote(note.id, "selected")
-      : handleSelectedNote(note.id, "notSelected");
+      ? handleSelectedNote(note, "selected")
+      : handleSelectedNote(note, "notSelected");
   }, [isChecked]);
 
   const handleCheckboxChange = () => {
@@ -28,7 +28,7 @@ const ArchivedNote = ({ note, onDelete, onRestore, handleSelectedNote }) => {
       onClick={handleNoteClick} // Handle note click
       className={` ${
         isChecked ? "border-red-500" : "border-gray-300"
-      } className=" bg-secondary dark:bg-dark-primary shadow-sm hover:shadow-xl border border-muted dark:border-accent-1 rounded-2xl p-4 transition-all duration-200 relative"`}
+      } className=" cursor-pointer bg-secondary dark:bg-dark-primary shadow-sm hover:shadow-xl border border-muted dark:border-accent-1 rounded-2xl p-4 transition-all duration-200 relative"`}
     >
       <div className="flex items-start justify-between">
         {/* Title and checkbox (checkbox hidden until note is clicked) */}
@@ -52,7 +52,7 @@ const ArchivedNote = ({ note, onDelete, onRestore, handleSelectedNote }) => {
         {isChecked && (
           <div className="flex space-x-2">
             <button
-              onClick={() => onRestore(note.id)}
+              onClick={() => onRestore(note)}
               className="text-green-500 hover:text-green-700"
             >
               <RestoreFromTrashIcon sx={{ fontSize: 30 }} />

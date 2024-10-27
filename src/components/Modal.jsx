@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "./Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Modal = ({ onAction, setShowModal, text, setNotes }) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
 
   const handleAction = async () => {
     try {
@@ -28,7 +30,7 @@ const Modal = ({ onAction, setShowModal, text, setNotes }) => {
     if (e.target.id === "closeModal") {
       !loading && setShowModal(false);
       if (message) {
-        navigate("/notes");
+        pathname === "/archive" ? navigate("/archive") : navigate("/notes");
       }
     }
   };
