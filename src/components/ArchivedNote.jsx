@@ -10,23 +10,19 @@ const ArchivedNote = ({
   onRestore,
   handleSelectedNote,
   loading,
+  selectAll,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [isNoteClicked, setIsNoteClicked] = useState(false);
 
   useEffect(() => {
-    isChecked
-      ? handleSelectedNote(note, "selected")
-      : handleSelectedNote(note, "notSelected");
+    handleSelectedNote(note, isChecked ? "selected" : "notSelected");
   }, [isChecked]);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-    setIsNoteClicked(false);
   };
 
   const handleNoteClick = () => {
-    setIsNoteClicked(true); // Show the checkbox when note is clicked
     setIsChecked(true);
   };
 
@@ -40,7 +36,8 @@ const ArchivedNote = ({
       <div className="flex items-start justify-between">
         {/* Title and checkbox (checkbox hidden until note is clicked) */}
         <div className="flex items-start">
-          {isNoteClicked && ( // Show the checkbox only when the note is clicked
+          {isChecked && (
+            // Show the checkbox only when the note is clicked
             <input
               type="checkbox"
               className="form-checkbox h-5 w-5 text-blue-500 border-gray-300 rounded-full mr-3 mt-1 focus:ring focus:ring-blue-200 transition duration-150 ease-in-out"

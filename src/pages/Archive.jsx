@@ -9,7 +9,8 @@ import Modal from "../components/Modal";
 
 const Archive = () => {
   const { currentUser } = useContext(AuthContext);
-  const { fetchUserNotes, deleteNote, batchUpdate } = useNotes();
+  const { fetchUserNotes, deleteNote, batchUpdate, multipleDeleteNotes } =
+    useNotes();
   const [trashed, setTrashed] = useState([]);
   const [error, setError] = useState(null);
   const [selectedNotes, setSelectedNotes] = useState([]);
@@ -21,6 +22,7 @@ const Archive = () => {
     fetchNote: true,
     restoreSelected: false,
     singleRestore: {},
+    multiPleDelete: false,
   });
 
   useEffect(() => {
@@ -44,21 +46,30 @@ const Archive = () => {
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     if (!selectAll) {
-      setSelectedNotes(trashed);
+      setSelectedNotes(() => [...trashed]);
     } else {
       setSelectedNotes([]);
     }
+    console.log(selectedNotes);
   };
 
   const handleShowModal = (id) => {
     setShowModal(true);
     setSingleNoteId(id);
   };
+
   const handleSingleNoteDelete = async () => {
     await deleteNote(singleNoteId);
     setSelectedNotes(selectedNotes.filter((n) => n.id !== singleNoteId));
     setSingleNoteId(null);
   };
+
+  const handleMultipleDelete = async () => {
+    await multipleDeleteNotes(selectedNotes);
+    setSelectedNotes([]);
+    setSingleNoteId(null);
+  };
+
   const handleRestore = async (note) => {
     setLoading((state) => ({
       ...state,
@@ -94,22 +105,28 @@ const Archive = () => {
     }
   };
 
-  // const handleSelectAll = (note) => {
-  //   const all = [];
-  //   all.push(note);
-  //   console.log(all);
-  // };
   return (
     <PageLayout className="mt-14">
       <div className="pb-5">
         <div className="flex flex-col sm:flex-row justify-between gap-5 mb-2">
-          {showModal && (
+          {showModal && !loading.multiPleDelete && (
             <Modal
               setShowModal={setShowModal}
               onAction={handleSingleNoteDelete}
-              text="Parmanently delete This Item?"
+              text="Parmanently delete this item?"
             />
           )}
+
+          {showModal && loading.multiPleDelete && (
+            <Modal
+              setShowModal={setShowModal}
+              onAction={handleMultipleDelete}
+              handleModal={loading.multiPleDelete}
+              loadingState={setLoading}
+              text="Are you sure you would like to parmanently delete these items?"
+            />
+          )}
+
           <h1 className="text-lg lg:text-2xl font-bold text-accent-2 text-center ">
             Archived Notes
           </h1>
@@ -136,6 +153,10 @@ const Archive = () => {
                text-accent-2`}
             />
             <Button
+              onClick={() => {
+                setShowModal(true);
+                setLoading((state) => ({ ...state, multiPleDelete: true }));
+              }}
               text="Delete"
               className={`${
                 selectedNotes.length < 2 && "cursor-not-allowed opacity-50"
@@ -175,7 +196,7 @@ const Archive = () => {
                 onRestore={handleRestore}
                 handleSelectedNote={handleSelectedNote}
                 loading={loading}
-                selectAll={selectAll}
+                isChecked={selectAll}
               />
             ))}
           </div>

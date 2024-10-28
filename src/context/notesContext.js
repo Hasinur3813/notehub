@@ -86,19 +86,29 @@ const NotesProvider = ({ children }) => {
     await deleteDoc(docRef);
   };
 
+  // multiple delete note
+
+  const multipleDeleteNotes = async (notes) => {
+    const deletePromises = notes.map((note) => {
+      return deleteDoc(doc(db, "notes", note.id));
+    });
+
+    await Promise.all(deletePromises);
+  };
+
   // batch delete
 
-  const batchDelete = async (userId) => {
-    // fetching all the notes first
-    const docRef = collection(db, "notes");
-    const q = query(docRef, where("userId", "==", userId));
-    const snapShot = await getDocs(q);
-    const batch = snapShot.docs.map(async (document) => {
-      const docRef = doc(db, "notes", document.id);
-      await deleteDoc(docRef);
-    });
-    await Promise.all(batch);
-  };
+  // const batchDelete = async (userId) => {
+  //   // fetching all the notes first
+  //   const docRef = collection(db, "notes");
+  //   const q = query(docRef, where("userId", "==", userId));
+  //   const snapShot = await getDocs(q);
+  //   const batch = snapShot.docs.map(async (document) => {
+  //     const docRef = doc(db, "notes", document.id);
+  //     await deleteDoc(docRef);
+  //   });
+  //   await Promise.all(batch);
+  // };
 
   const value = {
     notes,
@@ -107,7 +117,7 @@ const NotesProvider = ({ children }) => {
     createNote,
     updateNote,
     deleteNote,
-    batchDelete,
+    multipleDeleteNotes,
     batchUpdate,
   };
 

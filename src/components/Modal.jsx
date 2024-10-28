@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { Button } from "./Button";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const Modal = ({ onAction, setShowModal, text, setNotes }) => {
+const Modal = ({
+  onAction,
+  setShowModal,
+  text,
+  setNotes,
+  handleModal,
+  loadingState,
+}) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,7 +26,8 @@ const Modal = ({ onAction, setShowModal, text, setNotes }) => {
       setLoading(false);
       setMessage("Succesfully deleted!");
       setNotes && setNotes([]);
-    } catch {
+    } catch (e) {
+      console.log(e);
       setLoading(false);
       setError("Failed to delete!");
       setMessage("");
@@ -28,7 +36,11 @@ const Modal = ({ onAction, setShowModal, text, setNotes }) => {
 
   const handleCloseModal = (e) => {
     if (e.target.id === "closeModal") {
-      !loading && setShowModal(false);
+      if (!loading) {
+        handleModal &&
+          loadingState((state) => ({ ...state, multiPleDelete: false }));
+        setShowModal(false);
+      }
       if (message) {
         pathname === "/archive" ? navigate("/archive") : navigate("/notes");
       }
@@ -43,7 +55,7 @@ const Modal = ({ onAction, setShowModal, text, setNotes }) => {
     >
       <div className="max-w-sm p-10 bg-primary rounded ">
         {loading && (
-          <h3 className="text-lg md:text-2xl font-semibold flex items-center justify-center col-span-3 gap-3 text-gray-700">
+          <h3 className="text-lg md:text-xl font-semibold flex items-center justify-center col-span-3 gap-3 text-gray-700">
             <span className="loading loading-spinner loading:sm lg:loading-lg animate-spin text-red-500"></span>
             <span className="text-red-500">Deleting...</span>
           </h3>
@@ -56,7 +68,14 @@ const Modal = ({ onAction, setShowModal, text, setNotes }) => {
 
             <div className="flex justify-center mt-8 gap-8">
               <Button
-                onClick={() => setShowModal(false)}
+                onClick={() => {
+                  handleModal &&
+                    loadingState((state) => ({
+                      ...state,
+                      multiPleDelete: false,
+                    }));
+                  setShowModal(false);
+                }}
                 text="Cancel"
                 className="bg-accent-1 hover:bg-accent-2 rounded text-secondary text-lg"
               />
