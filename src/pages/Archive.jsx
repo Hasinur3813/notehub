@@ -132,7 +132,7 @@ const Archive = () => {
           </h1>
 
           <div className="flex gap-3 justify-center">
-            <div className="form-control">
+            <div className="form-control hidden">
               <label className="label cursor-pointer">
                 <input
                   type="checkbox"
