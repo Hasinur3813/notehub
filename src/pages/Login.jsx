@@ -9,10 +9,12 @@ import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordResetModal from "../components/PasswordResetModal";
 import { AuthContext } from "../context/authContext";
+import { useSideBar } from "../context/SideBar";
 
 const Login = () => {
   const navigate = useNavigate();
   const { login, signInWithGoogle } = useContext(AuthContext);
+  const { setIsSideBarOpen } = useSideBar();
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -29,8 +31,8 @@ const Login = () => {
         setError(null);
         await login(email, password);
         setLoading(false);
-        navigate("/");
-      } catch (e) {
+        navigate("/notes");
+      } catch {
         setLoading(false);
         setError("Email or Password is incorrect!");
       }
@@ -44,7 +46,7 @@ const Login = () => {
       setError(null);
       await signInWithGoogle();
       setLoading(false);
-      navigate("/");
+      navigate("/notes");
     } catch (e) {
       setError(e.code);
       console.log(e.code);

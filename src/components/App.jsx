@@ -1,4 +1,3 @@
-import React from "react";
 import HomePage from "../pages/HomePage";
 import Layout from "./Layout";
 import Signup from "../pages/Signup";
@@ -95,10 +94,10 @@ const router = createBrowserRouter(
         },
       ],
     },
-  ],
-  {
-    basename: process.env.NODE_ENV === "production" ? "/notehub" : "/",
-  }
+  ]
+  // {
+  //   basename: process.env.NODE_ENV === "production" ? "/notehub" : "/",
+  // }
 );
 
 const App = () => {

@@ -37,7 +37,7 @@ const Signup = () => {
       await signup(userName, email, password);
       setLoading(false);
 
-      navigate("/");
+      navigate("/notes");
     } catch {
       setError("It seems the email is already in use!");
       setLoading(false);

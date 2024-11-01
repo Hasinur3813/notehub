@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSideBar } from "../context/SideBar";
+import { AuthContext } from "../context/authContext";
 
 const PageLayout = ({ children, className }) => {
   const { isSideBarOpen, setIsSideBarOpen } = useSideBar();
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

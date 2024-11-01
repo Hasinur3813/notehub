@@ -1,7 +1,8 @@
-// tailwind.config.js
-module.exports = {
-  darkMode: ["class", '[data-theme="dark"]'], // Enable dark mode
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+import daisyui from "daisyui";
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: ["class", '[data-theme="dark"]'],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -26,5 +27,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [daisyui],
 };
