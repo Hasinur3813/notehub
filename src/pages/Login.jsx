@@ -9,12 +9,10 @@ import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordResetModal from "../components/PasswordResetModal";
 import { AuthContext } from "../context/authContext";
-import { useSideBar } from "../context/SideBar";
 
 const Login = () => {
   const navigate = useNavigate();
   const { login, signInWithGoogle } = useContext(AuthContext);
-  const { setIsSideBarOpen } = useSideBar();
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");

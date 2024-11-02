@@ -5,7 +5,7 @@ const ForEmptyNotes = () => {
   return (
     <div className="col-span-3 flex flex-col items-center justify-center p-10 rounded-lg space-y-4">
       <h3 className="text-3xl font-bold text-gray-800 dark:text-white">
-        No Data Found!
+        Empty!
       </h3>
       <p className="text-lg text-gray-600 dark:text-gray-300 text-center">
         Create your first note to get started.

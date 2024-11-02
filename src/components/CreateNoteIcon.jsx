@@ -5,7 +5,7 @@ const CreateNoteIcon = () => {
   return (
     <div
       title="Create Note"
-      className="fixed bottom-8 right-5 w-14 h-14 rounded-full bg-accent-1 flex justify-center items-center border border-accent-1 shadow-2xl"
+      className="fixed  bottom-8 right-5 w-14 h-14 rounded-full bg-accent-1 flex justify-center items-center border  shadow-lg shadow-cyan-400/50 border-accent-1 first-letter"
     >
       <Link
         className="text-primary w-full h-full flex justify-center items-center"

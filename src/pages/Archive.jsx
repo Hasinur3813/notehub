@@ -3,7 +3,7 @@ import { useNotes } from "../context/notesContext";
 import { AuthContext } from "../context/authContext";
 import PageLayout from "../components/PageLayout";
 import { CircularProgress } from "@mui/material";
-import ArchivedNote from "../components/ArchivedNote"; // Use your custom Note component
+import ArchivedNote from "../components/ArchivedNote";
 import { Button } from "../components/Button";
 import Modal from "../components/Modal";
 
@@ -149,6 +149,8 @@ const Archive = () => {
               text={`${loading.restoreSelected ? "Restoring..." : "Restore"}`}
               className={`${
                 selectedNotes.length < 2 && "cursor-not-allowed opacity-50"
+              } ${
+                selectedNotes.length < 2 && "hidden"
               } border border-accent-1  transition-all duration-200 !px-2 md:px-6 !py-1 lg:py-2 !text-base 
                text-accent-2`}
             />
@@ -157,10 +159,13 @@ const Archive = () => {
                 setShowModal(true);
                 setLoading((state) => ({ ...state, multiPleDelete: true }));
               }}
+              disabled={selectedNotes.length < 2}
               text="Delete"
               className={`${
                 selectedNotes.length < 2 && "cursor-not-allowed opacity-50"
-              }  transition-all duration-200 !px-2 md:px-6 !py-1 lg:py-2 !text-base 
+              } ${
+                selectedNotes.length < 2 && "hidden"
+              } transition-all duration-200 !px-2 md:px-6 !py-1 lg:py-2 !text-base 
                bg-red-200 border border-red-500 text-red-500`}
             />
           </div>
