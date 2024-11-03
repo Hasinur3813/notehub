@@ -23,19 +23,21 @@ const NotePage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const RenderNote = ({ note }) => {
+    const { id, title, description, createdAt } = note;
     return (
       <Note
-        key={note.id}
-        id={note.id}
-        title={
-          note.title.length > 50 ? `${note.title.slice(0, 50)}...` : note.title
-        }
+        id={id}
+        title={title.length > 50 ? `${title.slice(0, 50)}...` : title}
         description={
-          note.description.length > 70
-            ? `${note.description.slice(0, 70)}...`
-            : note.description
+          description.length > 70
+            ? `${description.slice(0, 70)}...`
+            : description
         }
-        createdAt={note.createdAt}
+        createdAt={createdAt.toDate().toLocaleString("en-GB", {
+          dateStyle: "short",
+          timeStyle: "short",
+          hour12: true,
+        })}
       />
     );
   };

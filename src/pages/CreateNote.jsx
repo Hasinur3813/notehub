@@ -7,6 +7,8 @@ import Category from "../components/Category";
 import { AuthContext } from "../context/authContext";
 import { useNotes } from "../context/notesContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { serverTimestamp, getDoc, doc } from "firebase/firestore";
+import db from "../firebase";
 
 const CreateNote = () => {
   const { updateNote } = useNotes();
@@ -28,15 +30,10 @@ const CreateNote = () => {
       description: content,
       category: category,
       userId: currentUser.uid,
-      createdAt: new Date().toLocaleString("en-GB", {
-        dateStyle: "short",
-        timeStyle: "short",
-        hour12: true,
-      }),
+      createdAt: serverTimestamp(),
       isTrashed: false,
     };
   };
-
   // update the btn text based on the logic
   const updateBtnText = (isEditing, loading) => {
     if (loading) {
@@ -71,9 +68,12 @@ const CreateNote = () => {
       setLoading(true);
       setError(null);
       const id = await createNote(note);
+      const newNoteDoc = await getDoc(doc(db, "notes", id));
+      const newNote = { id: newNoteDoc.id, ...newNoteDoc.data() };
+
       setLoading(false);
-      navigate(`/notes/note/${id}`, { state: { note: note } });
-    } catch (e) {
+      navigate(`/notes/note/${id}`, { state: { note: newNote } });
+    } catch {
       setLoading(false);
       setError("Failed to create note!");
     }
@@ -91,9 +91,12 @@ const CreateNote = () => {
       setLoading(true);
       setError(null);
       await updateNote(state.note.id, note);
+      const updatedNoteDoc = await getDoc(doc(db, "notes", state.note.id));
+      const updatedNote = { id: updatedNoteDoc.id, ...updatedNoteDoc.data() };
+
       setLoading(false);
       navigate(`/notes/note/${state.note.id}`, {
-        state: { note: note },
+        state: { note: updatedNote },
       });
     } catch {
       setError("Failed to update!");

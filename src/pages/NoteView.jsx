@@ -34,16 +34,20 @@ const NoteView = () => {
 
           {/* catergory and created date */}
           <div className="flex justify-between space-x-4">
-            <span className="text-gray-500 text-sm">
+            <span className="text-gray-500 text-sm leading-loose">
               <strong>Category: </strong>
               {"  "}
               <span className="bg-accent-1 px-2 py-1 text-primary rounded">
                 {filteredNote.category}
               </span>
             </span>
-            <span className="text-gray-500 text-sm">
-              <strong>Created:</strong>
-              {filteredNote.createdAt}
+            <span className="text-gray-500 text-sm leading-loose">
+              <strong>Created: </strong>
+              {filteredNote.createdAt.toDate().toLocaleString("en-GB", {
+                dateStyle: "short",
+                timeStyle: "short",
+                hour12: true,
+              })}
             </span>
           </div>
           <hr className="mt-4" />
@@ -75,7 +79,9 @@ const NoteView = () => {
         </div>
 
         <div className=" text-dark-secondary mb-6 dark:text-primary overflow-y-auto">
-          <p className="whitespace-pre-wrap">{filteredNote.description}</p>
+          <p className="whitespace-pre-wrap break-words">
+            {filteredNote.description}
+          </p>
         </div>
       </div>
     </PageLayout>
