@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { useContext, createContext, useState } from "react";
 import db from "../firebase";
 import {
@@ -95,20 +96,6 @@ const NotesProvider = ({ children }) => {
 
     await Promise.all(deletePromises);
   };
-
-  // batch delete
-
-  // const batchDelete = async (userId) => {
-  //   // fetching all the notes first
-  //   const docRef = collection(db, "notes");
-  //   const q = query(docRef, where("userId", "==", userId));
-  //   const snapShot = await getDocs(q);
-  //   const batch = snapShot.docs.map(async (document) => {
-  //     const docRef = doc(db, "notes", document.id);
-  //     await deleteDoc(docRef);
-  //   });
-  //   await Promise.all(batch);
-  // };
 
   const value = {
     notes,

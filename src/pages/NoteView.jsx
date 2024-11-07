@@ -8,7 +8,7 @@ import { useNotes } from "../context/notesContext";
 import Modal from "../components/Modal";
 
 const NoteView = () => {
-  const { notes, deleteNote } = useNotes();
+  const { notes, updateNote } = useNotes();
   const { id } = useParams();
   const { state } = useLocation();
   const [showModal, setShowModal] = useState(false);
@@ -16,12 +16,21 @@ const NoteView = () => {
   const filteredNote =
     state && state.note ? state.note : notes.find((note) => note.id === id);
 
+  const handleUpdateNote = async () => {
+    const updatedNote = {
+      ...filteredNote,
+      isTrashed: true,
+    };
+
+    await updateNote(id, updatedNote);
+  };
+
   return (
     <PageLayout className="flex justify-center">
       <div className="max-w-screen-xl w-full">
         {showModal && (
           <Modal
-            onAction={() => deleteNote(id)}
+            onAction={handleUpdateNote}
             setShowModal={setShowModal}
             text="Are your sure you want to delete this note?"
           />

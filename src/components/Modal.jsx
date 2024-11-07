@@ -53,7 +53,7 @@ const Modal = ({
       id="closeModal"
       className="fixed z-20 bg-opacity-50 inset-0 bg-slate-700 flex justify-center items-center"
     >
-      <div className="max-w-xs px-5 p-10 bg-primary rounded ">
+      <div className="max-w-xs px-5 p-10 bg-primary dark:bg-dark-primary outline-1 outline-accent-1 outline rounded ">
         {loading && (
           <h3 className="text-lg md:text-xl font-semibold flex items-center justify-center col-span-3 gap-3 text-gray-700">
             <span className="loading loading-spinner loading:sm lg:loading-lg animate-spin text-red-500"></span>

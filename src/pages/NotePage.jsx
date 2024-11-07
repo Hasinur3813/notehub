@@ -71,7 +71,7 @@ const NotePage = () => {
     <PageLayout>
       {showModal && (
         <Modal
-          text="Are you sure you want to delete all the notes?"
+          text="Delete all the notes?"
           setShowModal={setShowModal}
           onAction={() => batchUpdate(notes, "trashed")}
           setNotes={setNotes}
