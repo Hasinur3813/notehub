@@ -113,7 +113,7 @@ const NotePage = () => {
         <hr className="border-t-2 border-muted mx-auto" />
 
         {/* notes container where all the notes will be kept */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-3 pb-16">
           {/* show the loading spinner while fetching the notes */}
           {loading && <FetchingNotes />}
 
