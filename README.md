@@ -58,4 +58,4 @@ A web-based note-taking app where users can sign up, log in, create, read, updat
 
 ### Live Preview
 
-[View the project live](https://hasinur3813.github.io/notehub)
+[View the project live](https://notehub.surge.sh)
