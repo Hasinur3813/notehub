@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNotes } from "../context/notesContext";
 import { AuthContext } from "../context/authContext";
 import PageLayout from "../components/PageLayout";
-import { CircularProgress } from "@mui/material";
+
 import ArchivedNote from "../components/ArchivedNote";
 import { Button } from "../components/Button";
 import Modal from "../components/Modal";
@@ -16,7 +16,6 @@ const Archive = () => {
   const [selectedNotes, setSelectedNotes] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [singleNoteId, setSingleNoteId] = useState(null);
-  const [selectAll, setSelectAll] = useState(false);
 
   const [loading, setLoading] = useState({
     fetchNote: true,
@@ -32,7 +31,7 @@ const Archive = () => {
         const notes = await fetchUserNotes(currentUser.uid, true); // Fetching archived notes
         setTrashed(notes);
         setLoading((state) => ({ ...state, fetchNote: false }));
-      } catch (e) {
+      } catch {
         setLoading((state) => ({ ...state, fetchNote: false }));
         setError("Failed to load archived notes");
       }
@@ -41,17 +40,8 @@ const Archive = () => {
     if (currentUser) {
       getTrashed();
     }
-  }, [currentUser, fetchUserNotes, selectedNotes]);
-
-  const handleSelectAll = () => {
-    setSelectAll(!selectAll);
-    if (!selectAll) {
-      setSelectedNotes(() => [...trashed]);
-    } else {
-      setSelectedNotes([]);
-    }
-    console.log(selectedNotes);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser, selectedNotes]);
 
   const handleShowModal = (id) => {
     setShowModal(true);
@@ -131,15 +121,11 @@ const Archive = () => {
             Archived Notes
           </h1>
 
+          {/* handle select all feature that is currently hidden */}
           <div className="flex gap-3 justify-center">
             <div className="form-control hidden">
               <label className="label cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectAll}
-                  onChange={handleSelectAll}
-                  className="checkbox checkbox-primary"
-                />
+                <input type="checkbox" className="checkbox checkbox-primary" />
                 <span className="label-text">Select All</span>
               </label>
             </div>
@@ -175,7 +161,7 @@ const Archive = () => {
 
         {loading.fetchNote && (
           <div className="flex justify-center my-20">
-            <CircularProgress />
+            <span className="loading loading-spinner loading-lg text-accent-1"></span>
           </div>
         )}
 
@@ -201,7 +187,6 @@ const Archive = () => {
                 onRestore={handleRestore}
                 handleSelectedNote={handleSelectedNote}
                 loading={loading}
-                isChecked={selectAll}
               />
             ))}
           </div>

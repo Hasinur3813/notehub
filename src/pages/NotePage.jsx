@@ -15,7 +15,7 @@ import NoMatchNotes from "../components/NoMatchNotes";
 const NotePage = () => {
   const { currentUser } = useContext(AuthContext);
   const { fetchUserNotes, batchUpdate } = useNotes();
-  const { notes, setNotes } = useNotes();
+  const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);

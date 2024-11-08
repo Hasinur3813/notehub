@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext } from "react";
 import db from "../firebase";
 import {
   collection,
@@ -12,6 +12,7 @@ import {
   orderBy,
   getDocs,
   writeBatch,
+  getDoc,
 } from "@firebase/firestore";
 
 const NotesContext = createContext();
@@ -21,9 +22,35 @@ export const useNotes = () => {
 };
 
 const NotesProvider = ({ children }) => {
-  const [notes, setNotes] = useState([]);
+  // useEffect(() => {
+  //   const fetchNotes = async () => {
+  //     const docRef = collection(db, "notes");
+
+  //     const notesQuery = query(
+  //       docRef,
+  //       orderBy("createdAt", "desc"),
+  //       where("userId", "==", currentUser.uuid)
+  //     );
+  //     try{
+  //       setError(null)
+  //       setLoading(true);
+  //       const snapShot = await getDocs(notesQuery);
+  //       const notes = snapShot.docs.map((doc) => {
+  //         return { ...doc.data(), id: doc.id };
+  //       });
+  //       setNotes(notes);
+  //       setLoading(false)
+  //     }catch{
+  //       setError('Something went wrong!')
+
+  //     }
+  //   };
+
+  //   fetchNotes();
+  // }, [currentUser.uuid]);
 
   // fetch notes
+
   const fetchUserNotes = async (userId, isTrashed) => {
     const docRef = collection(db, "notes");
 
@@ -43,7 +70,15 @@ const NotesProvider = ({ children }) => {
       : notes.filter((note) => note.isTrashed === false);
   };
 
-  // add note functionality
+  const fetchSingleNote = async (noteId) => {
+    const ref = doc(db, "notes", noteId);
+    const noteSnap = await getDoc(ref);
+    if (noteSnap.exists()) {
+      return { id: noteSnap.id, ...noteSnap.data() };
+    }
+    console.log(noteSnap);
+  };
+  // adding note functionality
 
   const createNote = async (note) => {
     const noteRef = collection(db, "notes");
@@ -98,8 +133,7 @@ const NotesProvider = ({ children }) => {
   };
 
   const value = {
-    notes,
-    setNotes,
+    fetchSingleNote,
     fetchUserNotes,
     createNote,
     updateNote,
